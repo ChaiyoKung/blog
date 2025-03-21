@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
+import BlogCard from "../components/BlogCard.astro";
 
 const postLimit = 5;
 const posts = (await getCollection("blog"))
@@ -28,35 +29,7 @@ const posts = (await getCollection("blog"))
       </div>
 
       <div class="flex flex-col space-y-8 mb-12">
-        {
-          posts.map((post) => (
-            <div class="grid grid-cols-3 gap-4">
-              <div class="col-span-1 aspect-video bg-gray-400 rounded-lg overflow-hidden">
-                <img
-                  src={post.data.heroImage}
-                  alt={`${post.data.title} Blog Post Image`}
-                  class="object-cover w-full h-full"
-                />
-              </div>
-              <div class="col-span-2">
-                <div class="flex items-center space-x-2 text-sm">
-                  <span class="text-blue-600">Web Development</span>
-                  <span class="text-gray-400">•</span>
-                  <span class="text-blue-600">Markdown</span>
-                </div>
-                <a href={`/blog/${post.id}/`}>
-                  <h4 class="text-xl font-bold text-gray-800 my-2 transition duration-100">
-                    {post.data.title}
-                  </h4>
-                  <p class="text-gray-600 mb-4">{post.data.description}</p>
-                  <div class="flex items-center text-sm text-gray-500">
-                    {post.data.createdAt.toLocaleDateString()}
-                  </div>
-                </a>
-              </div>
-            </div>
-          ))
-        }
+        {posts.map((post) => <BlogCard blog={post} />)}
       </div>
 
       <div class="flex justify-center items-center">

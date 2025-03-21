@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  blog: CollectionEntry<"blog">;
+}
+
+const { blog } = Astro.props;
+---
+
+<div class="grid grid-cols-3 gap-4">
+  <div class="col-span-1 aspect-video bg-gray-400 rounded-lg overflow-hidden">
+    <img
+      src={blog.data.heroImage}
+      alt={`${blog.data.title} Blog Post Image`}
+      class="object-cover w-full h-full"
+    />
+  </div>
+  <div class="col-span-2">
+    {
+      blog.data.tags && blog.data.tags.length > 0 && (
+        <div class="flex items-center space-x-2 text-sm">
+          {blog.data.tags.map((tag, index) => (
+            <>
+              {index !== 0 && <span class="text-gray-400">•</span>}
+              <span class="text-blue-600">{tag}</span>
+            </>
+          ))}
+        </div>
+      )
+    }
+    <a href={`/blog/${blog.id}/`}>
+      <h4 class="text-xl font-bold text-gray-800 my-2 transition duration-100">
+        {blog.data.title}
+      </h4>
+      <p class="text-gray-600 mb-4">{blog.data.description}</p>
+      <div class="flex items-center text-sm text-gray-500">
+        {blog.data.createdAt.toLocaleDateString()}
+      </div>
+    </a>
+  </div>
+</div>
