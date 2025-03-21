@@ -7,7 +7,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, createdAt, updatedAt: updatedDate, heroImage } = Astro.props;
+const { title, description, createdAt, updatedAt, heroImage } = Astro.props;
 ---
 
 <html lang="en">
@@ -31,9 +31,9 @@ const { title, description, createdAt, updatedAt: updatedDate, heroImage } = Ast
             <div>
               <FormattedDate date={createdAt} />
               {
-                updatedDate && (
+                updatedAt && (
                   <div>
-                    Last updated on <FormattedDate date={updatedDate} />
+                    Last updated on <FormattedDate date={updatedAt} />
                   </div>
                 )
               }
