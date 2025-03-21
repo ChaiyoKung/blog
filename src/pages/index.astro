@@ -3,6 +3,12 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+
+const postLimit = 5;
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.createdAt.valueOf() - a.data.createdAt.valueOf())
+  .slice(0, postLimit);
 ---
 
 <!doctype html>
@@ -12,52 +18,57 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
   </head>
   <body>
     <Header />
-    <main>
-      <h1>🧑‍🚀 Hello, Astronaut!</h1>
-      <p>
-        Welcome to the official <a href="https://astro.build/">Astro</a> blog starter
-        template. This template serves as a lightweight, minimally-styled starting
-        point for anyone looking to build a personal website, blog, or portfolio
-        with Astro.
-      </p>
-      <p>
-        This template comes with a few integrations already configured in your
-        <code>astro.config.mjs</code> file. You can customize your setup with
-        <a href="https://astro.build/integrations">Astro Integrations</a> to add
-        tools like Tailwind, React, or Vue to your project.
-      </p>
-      <p>Here are a few ideas on how to get started with the template:</p>
-      <ul>
-        <li>Edit this page in <code>src/pages/index.astro</code></li>
-        <li>
-          Edit the site header items in <code>src/components/Header.astro</code>
-        </li>
-        <li>
-          Add your name to the footer in <code>src/components/Footer.astro</code
-          >
-        </li>
-        <li>
-          Check out the included blog posts in <code>src/content/blog/</code>
-        </li>
-        <li>
-          Customize the blog post page layout in <code
-            >src/layouts/BlogPost.astro</code
-          >
-        </li>
-      </ul>
-      <p>
-        Have fun! If you get stuck, remember to
-        <a href="https://docs.astro.build/">read the docs</a>
-        or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-      </p>
-      <p>
-        Looking for a blog template with a bit more personality? Check out
-        <a href="https://github.com/Charca/astro-blog-template"
-          >astro-blog-template</a
+
+    <main class="container mx-auto px-4 py-12">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Latest Articles</h2>
+        <a href="/blog" class="text-blue-600 hover:text-indigo-600 font-medium">
+          View All
+        </a>
+      </div>
+
+      <div class="flex flex-col space-y-8 mb-12">
+        {
+          posts.map((post) => (
+            <div class="grid grid-cols-3 gap-4">
+              <div class="col-span-1 aspect-video bg-gray-400 rounded-lg overflow-hidden">
+                <img
+                  src={post.data.heroImage}
+                  alt={`${post.data.title} Blog Post Image`}
+                  class="object-cover w-full h-full"
+                />
+              </div>
+              <div class="col-span-2">
+                <div class="flex items-center space-x-2 text-sm">
+                  <span class="text-blue-600">Web Development</span>
+                  <span class="text-gray-400">•</span>
+                  <span class="text-blue-600">Markdown</span>
+                </div>
+                <a href={`/blog/${post.id}/`}>
+                  <h4 class="text-xl font-bold text-gray-800 my-2 transition duration-100">
+                    {post.data.title}
+                  </h4>
+                  <p class="text-gray-600 mb-4">{post.data.description}</p>
+                  <div class="flex items-center text-sm text-gray-500">
+                    {post.data.createdAt.toLocaleDateString()}
+                  </div>
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="flex justify-center items-center">
+        <a
+          href="/blog"
+          class="text-blue-600 border border-blue-200 hover:bg-blue-100 font-medium py-2 px-4 rounded-lg text-center transition duration-100"
         >
-        by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-      </p>
+          View All
+        </a>
+      </div>
     </main>
+
     <Footer />
   </body>
 </html>
