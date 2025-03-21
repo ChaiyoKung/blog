@@ -9,6 +9,16 @@ const subpath = pathname.match(/[^\/]+/g);
 const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
+<a
+  href={href}
+  class:list={[
+    {
+      "text-gray-700": !isActive,
+      "text-blue-600": isActive,
+    },
+    "hover:text-indigo-600 font-medium",
+  ]}
+  {...props}
+>
   <slot />
 </a>

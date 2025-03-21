@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import LinkedInIcon from "./LinkedInIcon.astro";
+
+type ReservedLinkProps = "href" | "target" | "aria-label";
+type Props = Omit<HTMLAttributes<"a">, ReservedLinkProps>;
+
+const props = Astro.props;
+---
+
+<a
+  href="https://www.linkedin.com/in/kananek/"
+  target="_blank"
+  aria-label="LinkedIn"
+  {...props}
+>
+  <LinkedInIcon />
+</a>

@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import GitHubIcon from "./GitHubIcon.astro";
+
+type ReservedLinkProps = "href" | "target" | "aria-label";
+type Props = Omit<HTMLAttributes<"a">, ReservedLinkProps>;
+
+const props = Astro.props;
+---
+
+<a
+  href="https://github.com/ChaiyoKung"
+  target="_blank"
+  aria-label="GitHub"
+  {...props}
+>
+  <GitHubIcon />
+</a>

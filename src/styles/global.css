@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+.container {
+  width: 100%;
+}
+
+@media (width >= 40rem /* 640px */) {
+  .container {
+    max-width: 40rem /* 640px */;
+  }
+}
+
+@media (width >= 48rem /* 768px */) {
+  .container {
+    max-width: 48rem /* 768px */;
+  }
+}
+
+@media (width >= 64rem /* 1024px */) {
+  .container {
+    max-width: 64rem /* 1024px */;
+  }
+}
