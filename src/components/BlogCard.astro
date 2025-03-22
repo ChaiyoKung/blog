@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import BlogCardTag from "./BlogCardTag.astro";
 
 interface Props {
   blog: CollectionEntry<"blog">;
@@ -17,18 +18,7 @@ const { blog } = Astro.props;
     />
   </div>
   <div class="col-span-2">
-    {
-      blog.data.tags && blog.data.tags.length > 0 && (
-        <div class="flex items-center space-x-2 text-sm">
-          {blog.data.tags.map((tag, index) => (
-            <>
-              {index !== 0 && <span class="text-gray-400">•</span>}
-              <span class="text-blue-600">{tag}</span>
-            </>
-          ))}
-        </div>
-      )
-    }
+    <BlogCardTag blog={blog} />
     <a href={`/blog/${blog.id}/`}>
       <h4 class="text-xl font-bold text-gray-800 my-2 transition duration-100">
         {blog.data.title}
