@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BlogCardTag from "./BlogCardTag.astro";
+import FormattedDate from "./FormattedDate.astro";
 
 interface Props {
   blog: CollectionEntry<"blog">;
@@ -25,7 +26,7 @@ const { blog } = Astro.props;
       </h4>
       <p class="text-gray-600 mb-4">{blog.data.description}</p>
       <div class="flex items-center text-sm text-gray-500">
-        {blog.data.createdAt.toLocaleDateString()}
+        <FormattedDate date={blog.data.createdAt} />
       </div>
     </a>
   </div>
