@@ -6,10 +6,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
 
-const postLimit = 5;
-const posts = (await getCollection("blog"))
+const blogLimit = 5;
+const blogs = (await getCollection("blog"))
   .sort((a, b) => b.data.createdAt.valueOf() - a.data.createdAt.valueOf())
-  .slice(0, postLimit);
+  .slice(0, blogLimit);
 ---
 
 <!doctype html>
@@ -29,7 +29,7 @@ const posts = (await getCollection("blog"))
       </div>
 
       <div class="flex flex-col space-y-8 mb-12">
-        {posts.map((post) => <BlogCard blog={post} />)}
+        {blogs.map((blog) => <BlogCard blog={blog} />)}
       </div>
 
       <div class="flex justify-center items-center">
