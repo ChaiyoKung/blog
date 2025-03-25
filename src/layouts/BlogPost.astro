@@ -2,7 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
-import MarkdownWrapper from "../components/MarkdownWrapper.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -38,8 +37,6 @@ const { title, description, createdAt, updatedAt, heroImage } = Astro.props;
 
     <hr class="border-gray-200 my-12" />
 
-    <MarkdownWrapper>
-      <slot />
-    </MarkdownWrapper>
+    <slot />
   </article>
 </Layout>
