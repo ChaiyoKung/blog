@@ -1,10 +1,8 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 const blogLimit = 5;
 const blogs = (await getCollection("blog"))
@@ -12,36 +10,24 @@ const blogs = (await getCollection("blog"))
   .slice(0, blogLimit);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="flex justify-between items-center mb-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Latest Blogs</h2>
+    <a href="/blog" class="text-blue-600 hover:text-blue-800 font-medium">
+      View All
+    </a>
+  </div>
 
-    <main class="container mx-auto px-4 py-12">
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-8">Latest Blogs</h2>
-        <a href="/blog" class="text-blue-600 hover:text-blue-800 font-medium">
-          View All
-        </a>
-      </div>
+  <div class="flex flex-col space-y-8 mb-12">
+    {blogs.map((blog) => <BlogCard blog={blog} />)}
+  </div>
 
-      <div class="flex flex-col space-y-8 mb-12">
-        {blogs.map((blog) => <BlogCard blog={blog} />)}
-      </div>
-
-      <div class="flex justify-center items-center">
-        <a
-          href="/blog"
-          class="text-blue-600 border border-gray-200 font-medium py-2 px-4 rounded-lg text-center transition duration-100"
-        >
-          View All Blogs
-        </a>
-      </div>
-    </main>
-
-    <Footer />
-  </body>
-</html>
+  <div class="flex justify-center items-center">
+    <a
+      href="/blog"
+      class="text-blue-600 border border-gray-200 font-medium py-2 px-4 rounded-lg text-center transition duration-100"
+    >
+      View All Blogs
+    </a>
+  </div>
+</Layout>
