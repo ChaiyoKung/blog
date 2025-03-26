@@ -3,14 +3,20 @@ import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
 import Prose from "../components/Prose.astro";
+import BlogCardTag from "../components/BlogCardTag.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, createdAt, updatedAt, heroImage } = Astro.props;
+const { title, description, createdAt, updatedAt, heroImage, tags } =
+  Astro.props;
 ---
 
 <Layout title={title} description={description} image={heroImage}>
   <article>
+    <div class="mb-4">
+      <BlogCardTag tags={tags} />
+    </div>
+
     <h1 class="text-6xl font-bold text-gray-800 mb-4">
       {title}
     </h1>
