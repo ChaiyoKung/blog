@@ -17,10 +17,10 @@ const { title, description, image } = Astro.props;
   <head>
     <BaseHead title={title} description={description} image={image} />
   </head>
-  <body>
+  <body class="flex flex-col min-h-screen">
     <Header />
 
-    <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-4 py-12 flex-grow">
       <slot />
     </main>
 
