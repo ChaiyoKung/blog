@@ -19,7 +19,7 @@ const { blog } = Astro.props;
     />
   </div>
   <div class="col-span-2">
-    <BlogCardTag blog={blog} />
+    <BlogCardTag tags={blog.data.tags} />
     <a href={`/blog/${blog.id}/`}>
       <h4 class="text-xl font-bold text-gray-800 my-2 transition duration-100">
         {blog.data.title}
