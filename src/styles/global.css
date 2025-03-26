@@ -5,6 +5,11 @@
   width: 100%;
 }
 
+.prose mark {
+  color: var(--color-yellow-800);
+  background-color: var(--color-yellow-200);
+}
+
 @media (width >= 40rem /* 640px */) {
   .container {
     max-width: 40rem /* 640px */;
