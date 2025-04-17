@@ -36,13 +36,13 @@ tags:
 
 ต่อมาเลือก Region ว่าเราจะใช้ Server ที่อยู่ Region ไหน และเลือก Datacenter
 
-ผมใช้ Region “Singapore” เพราะว่าอยู่ใกล้ไทยสุด Ping จะได้น้อยหน่อย ส่วน Datacenter ที่ Singapore มีที่เดียวอะนะ เลยไม่มีตัวเลือกอื่น ก็ใช้ที่เขาให้มานั่นแหละ
+ผมใช้ Region "Singapore" เพราะว่าอยู่ใกล้ไทยสุด Ping จะได้น้อยหน่อย ส่วน Datacenter ที่ Singapore มีที่เดียวอะนะ เลยไม่มีตัวเลือกอื่น ก็ใช้ที่เขาให้มานั่นแหละ
 
 ![Region selection in DigitalOcean](/blog/how-to-create-minecraft-server-on-digitalocean/3.png)
 
 และก็เลือก OS และ OS Version ที่ต้องการ
 
-ผมใช้ OS “Ubuntu” Version “24.04 (LTS) x64”
+ผมใช้ OS "Ubuntu" Version "24.04 (LTS) x64"
 
 ![Operating system selection in DigitalOcean](/blog/how-to-create-minecraft-server-on-digitalocean/4.png)
 
@@ -96,7 +96,7 @@ tags:
 
 ![Terminal interface in DigitalOcean](/blog/how-to-create-minecraft-server-on-digitalocean/14.png)
 
-ให้เราติดตั้ง Software Package ที่ต้องใช้โดยการใช้คำสั่งนี้ แล้วเขาจะบอกว่า “Press [Enter] to continue” เราก็กด Enter ไป จากนั้นรอไม่นาน ก็จะขึ้นว่า Done
+ให้เราติดตั้ง Software Package ที่ต้องใช้โดยการใช้คำสั่งนี้ แล้วเขาจะบอกว่า "Press [Enter] to continue" เราก็กด Enter ไป จากนั้นรอไม่นาน ก็จะขึ้นว่า Done
 
 ```bash
 sudo add-apt-repository ppa:openjdk-r/ppa
@@ -126,7 +126,7 @@ sudo apt install openjdk-21-jre-headless
 
 ![OpenJDK installation completed](/blog/how-to-create-minecraft-server-on-digitalocean/18.png)
 
-ที่นี้เราจะมาติดตั้ง Software อีกตัวนึงชื่อ “Screen” เอาไว้ทำให้เราสร้าง Session ในระบบแล้วปล่อยมันทำงานอยู่เบื้องหลังได้ เพราะว่าถ้าเรา Start Minecraft Server แล้ว เราจะต้องปล่อยมันทำงานอยู่เบื้องหลังไป เวลาปิด Terminal มันจะได้ไม่ไป Stop Minecraft Server เรา
+ที่นี้เราจะมาติดตั้ง Software อีกตัวนึงชื่อ "Screen" เอาไว้ทำให้เราสร้าง Session ในระบบแล้วปล่อยมันทำงานอยู่เบื้องหลังได้ เพราะว่าถ้าเรา Start Minecraft Server แล้ว เราจะต้องปล่อยมันทำงานอยู่เบื้องหลังไป เวลาปิด Terminal มันจะได้ไม่ไป Stop Minecraft Server เรา
 
 ```bash
 sudo apt install screen
