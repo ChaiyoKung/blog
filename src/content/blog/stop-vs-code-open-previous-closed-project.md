@@ -17,12 +17,12 @@ tags:
 
 อยากแรกเลย เปิด VS Code ขึ้นมาก่อน แล้วเปิด Setting ของ VS Code ผ่าน UI หรือกดคีย์ลัด `ctrl + ,` (Windows/Linux) หรือ `cmd + ,` (MacOS)
 
-![alt text](/blog/stop-vs-code-open-previous-closed-project/1.png)
+![VS Code Settings UI](/blog/stop-vs-code-open-previous-closed-project/1.png)
 
 ค้นหาว่า window.restoreWindows แล้วเปลี่ยนค่าเป็น none
 
-![alt text](/blog/stop-vs-code-open-previous-closed-project/2.png)
+![Change window.restoreWindows to none](/blog/stop-vs-code-open-previous-closed-project/2.png)
 
 เพียงเท่านี้ทุกครั้งที่เปิด VS Code ขึ้นมาเราก็จะได้หน้าว่างมาแทน
 
-![alt text](/blog/stop-vs-code-open-previous-closed-project/3.png)
+![Blank VS Code window](/blog/stop-vs-code-open-previous-closed-project/3.png)
