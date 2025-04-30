@@ -75,7 +75,7 @@ const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
   async
   src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
 ></script>
-<script is:inline type="text/partytown">
+<script is:inline type="text/partytown" define:vars={{ googleAnalyticsId }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     dataLayer.push(arguments);
