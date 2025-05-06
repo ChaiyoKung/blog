@@ -1,6 +1,6 @@
 ---
 title: "ใช้งาน Studio 3T กับ MongoDB Version เก่ากว่า 4.0"
-description: "แนะนำวิธีใช้ Studio 3T กับ MongoDB Version เก่ากว่า 4.0 โดยอธิบายขั้นตอนการ Download ติดตั้ง ใช้งานฟรีเบื้องต้น และการเชื่อมต่อกับ MongoDB Server 3.6"
+description: "ใช้ Studio 3T กับ MongoDB Version เก่ากว่า 4.0 โดยอธิบายขั้นตอนการ Download ติดตั้ง ใช้งานฟรีเบื้องต้น และการเชื่อมต่อกับ MongoDB Server 3.6"
 createdAt: "May 7, 2025"
 heroImage: "/blog/using-studio3t-with-mongodb-version-earlier-than-4-0/banner.png"
 tags:
