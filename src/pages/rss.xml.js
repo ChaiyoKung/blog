@@ -13,6 +13,7 @@ export async function GET(context) {
     description: SITE_DESCRIPTION,
     site: context.site,
     trailingSlash: false,
+    stylesheet: "/rss/styles.xsl",
     items: blogs.map((blog) => ({
       ...blog.data,
       link: `/blog/${blog.id}/`,
