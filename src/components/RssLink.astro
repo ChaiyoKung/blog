@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import RssIcon from "./RssIcon.astro";
+
+type ReservedLinkProps = "href" | "target" | "aria-label";
+type Props = Omit<HTMLAttributes<"a">, ReservedLinkProps>;
+
+const props = Astro.props;
+---
+
+<a href="/rss.xml" aria-label="RSS feed" {...props}>
+  <RssIcon />
+</a>
