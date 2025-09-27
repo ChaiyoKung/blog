@@ -1,7 +1,7 @@
 ---
 title: "วิธีเปิด Terraria Server บน DigitalOcean (แบบละเอียด)"
 description: "วิธีเปิด Terraria Server บน DigitalOcean แบบละเอียดพร้อมภาพประกอบ ถึงไม่ใช้ DigitalOcean ก็อ่านได้"
-createdAt: "Sep 27, 2025"
+createdAt: "Sep 28, 2025"
 heroImage: "/blog/how-to-create-terraria-server-on-digitalocean/banner.png"
 tags:
   - "Terraria Server"
