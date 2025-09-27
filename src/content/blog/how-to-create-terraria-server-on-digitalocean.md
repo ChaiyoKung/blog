@@ -11,8 +11,6 @@ tags:
   - "Hobby"
 ---
 
-# วิธีเปิด Terraria Server บน DigitalOcean (แบบละเอียด)
-
 > Terraria Server ใน Blog นี้จะใช้เปิดสำหรับ Terraria Version 1.4.4.9 เป็นตัวอย่าง
 
 ## ทำไมต้องเปิด Terraria Server เอง?
