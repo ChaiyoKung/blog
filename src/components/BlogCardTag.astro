@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { tagToSlug } from "../utils/tagToSlug";
 
 interface Props {
   tags: CollectionEntry<"blog">["data"]["tags"];
@@ -17,7 +18,12 @@ if (!tags || tags.length === 0) {
     tags.map((tag, index) => (
       <>
         {index !== 0 && <span class="text-gray-400">•</span>}
-        <span class="text-blue-600">{tag}</span>
+        <a
+          href={`/tags/${tagToSlug(tag)}`}
+          class="text-blue-600 hover:text-blue-800"
+        >
+          {tag}
+        </a>
       </>
     ))
   }
