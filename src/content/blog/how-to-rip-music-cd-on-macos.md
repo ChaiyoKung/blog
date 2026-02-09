@@ -1,7 +1,7 @@
 ---
 title: "วิธีดึงไฟล์เพลงจากแผ่น CD (Rip) บน macOS โดยไม่ต้องลงโปรแกรมเพิ่ม"
 description: "มาดูวิธี Rip เพลงจากแผ่น CD ด้วยโปรแกรมที่มีอยู่แล้วใน macOS กันดีกว่า ง่ายนิดเดียว ไม่ต้องลงโปรแกรมอะไรเพิ่มเลย"
-createdAt: "Feb 9, 2026"
+createdAt: "Feb 10, 2026"
 heroImage: "/blog/how-to-rip-music-cd-on-macos/banner.png"
 category: "how-to"
 tags:
