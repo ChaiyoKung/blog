@@ -31,9 +31,9 @@ tags:
 
 _(หมายเหตุ: ลิงก์สำหรับซื้อ External CD/DVD Drive ที่จะแปะต่อไปนี้เป็น Affiliate Link นะครับ หากคุณซื้อผ่านลิงก์นี้ ผมจะได้รับค่าคอมมิชชั่นเล็กน้อยเพื่อเป็นกำลังใจในการทำคอนเทนต์ต่อไปครับ)_
 
-- [ลิงก์สำหรับซื้อ EXTERNAL DVD ASUS SDRW-08D2S-U LITE (BLACK) (USB-A)](https://s.shopee.co.th/40awNMcRij)
-- [ลิงก์สำหรับซื้อ Ext.Slim DVD RW 8X ASUS (08D2S-U) Lite Black - A0046699](https://s.shopee.co.th/4VXCyL2cHg)
-- [ลิงก์สำหรับซื้อ ASUS Ext.Slim DVD RW ASUS (08D2S-U Lite) White - A0046467](https://s.shopee.co.th/20przrNk6d)
+- <a href="https://s.shopee.co.th/40awNMcRij" target="_blank" rel="noopener noreferrer">ลิงก์สำหรับซื้อ EXTERNAL DVD ASUS SDRW-08D2S-U LITE (BLACK) (USB-A)</a>
+- <a href="https://s.shopee.co.th/4VXCyL2cHg" target="_blank" rel="noopener noreferrer">ลิงก์สำหรับซื้อ Ext.Slim DVD RW 8X ASUS (08D2S-U) Lite Black - A0046699</a>
+- <a href="https://s.shopee.co.th/20przrNk6d" target="_blank" rel="noopener noreferrer">ลิงก์สำหรับซื้อ ASUS Ext.Slim DVD RW ASUS (08D2S-U Lite) White - A0046467</a>
 
 #### 2. เปิดโปรแกรม Media Player
 
