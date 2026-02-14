@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { tagToSlug } from "../../utils/tagToSlug";
+import { sortBlogCollectionByCreatedAt } from "../../utils/sortBlogCollectionByCreatedAt";
 import BlogCard from "../../components/BlogCard.astro";
 import Layout from "../../layouts/Layout.astro";
 
@@ -13,18 +14,15 @@ export async function getStaticPaths() {
   return uniqueTags.map((tag) => {
     const normalizedTag = tagToSlug(tag);
 
-    const filteredBlogs = blogs
-      .filter((post) => {
-        return post.data.tags?.some((t) => tagToSlug(t) === normalizedTag);
-      })
-      .sort((a, b) => {
-        return b.data.createdAt.valueOf() - a.data.createdAt.valueOf();
-      });
+    const filteredBlogs = blogs.filter((post) => {
+      return post.data.tags?.some((t) => tagToSlug(t) === normalizedTag);
+    });
+    const sortedBlogs = sortBlogCollectionByCreatedAt(filteredBlogs, "desc");
 
     return {
       params: { tag: normalizedTag },
       props: {
-        blogs: filteredBlogs,
+        blogs: sortedBlogs,
       },
     };
   });

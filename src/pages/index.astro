@@ -3,11 +3,12 @@ import { getCollection } from "astro:content";
 import BlogCard from "../components/BlogCard.astro";
 import Layout from "../layouts/Layout.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { sortBlogCollectionByCreatedAt } from "../utils/sortBlogCollectionByCreatedAt";
 
 const blogLimit = 5;
-const blogs = (await getCollection("blog"))
-  .sort((a, b) => b.data.createdAt.valueOf() - a.data.createdAt.valueOf())
-  .slice(0, blogLimit);
+const blogs = await getCollection("blog");
+const sortedBlogs = sortBlogCollectionByCreatedAt(blogs, "desc");
+const limitedBlogs = sortedBlogs.slice(0, blogLimit);
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -19,7 +20,7 @@ const blogs = (await getCollection("blog"))
   </div>
 
   <div class="flex flex-col space-y-8 mb-12">
-    {blogs.map((blog) => <BlogCard blog={blog} />)}
+    {limitedBlogs.map((blog) => <BlogCard blog={blog} />)}
   </div>
 
   <div class="flex justify-center items-center">
