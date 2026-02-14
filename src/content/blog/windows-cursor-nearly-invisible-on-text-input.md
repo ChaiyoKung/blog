@@ -1,6 +1,6 @@
 ---
-title: "Resolving the Nearly Invisible Text Select Cursor Issue on Windows 11"
-description: "A guide to fixing the text select cursor issue caused by AMD display driver updates on Windows 11."
+title: "วิธีแก้ปัญหา Cursor เลือกข้อความ (Text Select) แทบมองไม่เห็นบน Windows 11"
+description: "คู่มือแก้ปัญหา Cursor เลือกข้อความที่แทบมองไม่เห็น หลังอัปเดต AMD display driver บน Windows 11"
 createdAt: "Sep 26, 2025"
 heroImage: "/blog/windows-cursor-nearly-invisible-on-text-input/banner.png"
 tags:
@@ -11,15 +11,15 @@ tags:
   - "Tech Support"
 ---
 
-# Resolving the Nearly Invisible Text Select Cursor Issue on Windows 11
+# วิธีแก้ปัญหา Cursor เลือกข้อความ (Text Select) แทบมองไม่เห็นบน Windows 11
 
-If you've recently encountered an issue where the text select pointer becomes nearly invisible when hovering over black text on a white background, you're not alone. This problem has been reported by users after a Windows update that installed a new AMD display driver. Here's a detailed look at the issue and how to resolve it.
+ถ้าคุณเจอปัญหา Cursor เลือกข้อความ (Text Select Pointer) แทบจะมองไม่เห็นเวลาชี้บนตัวหนังสือสีดำพื้นหลังขาว คุณไม่ได้เจอคนเดียว ปัญหานี้เกิดขึ้นหลังจาก Windows update ที่ติดตั้ง AMD display driver เวอร์ชันใหม่ บทความนี้จะอธิบายปัญหาและวิธีแก้ไข
 
-## The Solution
+## วิธีแก้ไข
 
-### Step 1: Create a Registry File
+### ขั้นตอนที่ 1: สร้างไฟล์ Registry
 
-1. Open Notepad and paste the following code:
+1. เปิด Notepad แล้ววางโค้ดนี้ลงไป:
 
    ```
    Windows Registry Editor Version 5.00
@@ -28,28 +28,28 @@ If you've recently encountered an issue where the text select pointer becomes ne
    "OverlayTestMode"=dword:00000005
    ```
 
-2. Save the file with a `.reg` extension. For example, name it `FixCursorBug.reg`.
+2. บันทึกไฟล์โดยตั้งนามสกุลเป็น `.reg` เช่น `FixCursorBug.reg`
 
-### Step 2: Apply the Registry Changes
+### ขั้นตอนที่ 2: นำ Registry ไปใช้
 
-1. Double-click the `FixCursorBug.reg` file.
-2. Confirm any prompts to merge the information into the Windows Registry.
+1. ดับเบิลคลิกไฟล์ `FixCursorBug.reg`
+2. กดยืนยันทุกหน้าต่างที่ถาม เพื่อ merge ข้อมูลเข้า Windows Registry
 
-### Step 3: Restart Your Computer
+### ขั้นตอนที่ 3: Restart เครื่อง
 
-Restart your system to apply the changes.
+Restart เครื่องคอมพิวเตอร์เพื่อให้การเปลี่ยนแปลงมีผล
 
-### Step 4: Test the Fix
+### ขั้นตอนที่ 4: ทดสอบ Cursor
 
-After restarting, test the text select pointer on websites or applications with black text on a white background. The cursor should now behave as expected.
+หลัง Restart ให้ลองทดสอบ Cursor เลือกข้อความบนเว็บไซต์หรือแอปที่มีตัวหนังสือสีดำพื้นขาว Cursor ควรจะกลับมาแสดงผลปกติ
 
-## References
+## อ้างอิง
 
-For further details and discussions on this issue, check out the following resources:
+ดูรายละเอียดและการพูดคุยเพิ่มเติมเกี่ยวกับปัญหานี้ได้ที่:
 
 - [Chromium Issue Tracker](https://issues.chromium.org/issues/40239916)
 - [Microsoft Answers Forum](https://answers.microsoft.com/en-us/windows/forum/all/text-select-pointer-goes-completely-white-colored/52ca5f37-d7f5-48c3-87ed-226562688a94)
 
-By following the steps outlined above, you can resolve the nearly invisible text select cursor issue and restore normal functionality to your system.
+ทำตามขั้นตอนข้างต้นนี้ คุณจะสามารถแก้ปัญหา Cursor เลือกข้อความแทบมองไม่เห็น และใช้งานเครื่องได้ตามปกติ
 
-Thank you for reading, and happy computing!
+ขอบคุณที่อ่านจนจบ ขอให้ใช้งาน Windows อย่างมีความสุข!
