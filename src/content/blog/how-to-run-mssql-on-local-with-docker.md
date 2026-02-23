@@ -1,7 +1,7 @@
 ---
 title: "วิธีรัน MSSQL บนเครื่องตัวเองด้วย Docker"
 description: "สอนวิธีรัน Microsoft SQL Server (MSSQL) บนเครื่องตัวเองด้วย Docker เหมาะสำหรับ Developer ที่ต้องการ Database สำหรับทดสอบหรือพัฒนา"
-createdAt: "Feb 21, 2026"
+createdAt: "Feb 23, 2026"
 heroImage: "/blog/how-to-run-mssql-on-local-with-docker/banner.png"
 tags:
   - "MSSQL"
