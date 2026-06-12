@@ -88,41 +88,43 @@ tags:
 
 เลือก Type เป็น `SSH`, Source type เป็น `Custom`, แล้ว Source ค้นหาว่า "ec2" จากนั้นเลือก `com.amazonaws.<region>.ec2-instance-connect`
 
+![Adding EC2 Instance Connect rule](/blog/how-to-create-minecraft-server-on-aws/16.png)
+
 ต่อมาเป็น Rule ของ Minecraft Server เอง กดที่ **Add security group rule** อีกครั้ง เลือก Type เป็น `Custom TCP`, Port range เป็น `25565`, Source type เป็น `Anywhere` เพื่อให้ผู้เล่น Minecraft เชื่อมต่อเข้ามาเล่นได้จากทุกที่
 
-![Adding Minecraft port rule](/blog/how-to-create-minecraft-server-on-aws/16.png)
+![Adding Minecraft port rule](/blog/how-to-create-minecraft-server-on-aws/17.png)
 
 สำหรับ Security Group Rules พวกนี้เรากลับมาแก้ทีหลังได้ตลอด ถ้าจะเพิ่มหรือลด Port ที่เปิดก็ทำได้เลยจากเมนูด้านซ้าย
 
-![EC2 dashboard sidebar](/blog/how-to-create-minecraft-server-on-aws/17.png)
+![EC2 dashboard sidebar](/blog/how-to-create-minecraft-server-on-aws/18.png)
 
 กลับมาตั้งค่า Storage กันต่อครับ ในที่นี้ผมใช้ `20 GB` ซึ่งพอสำหรับ Minecraft Server ขนาดเล็ก ๆ แล้ว แต่ถ้าใครอยากเพิ่มก็ปรับได้เลย
 
-![Instance storage settings](/blog/how-to-create-minecraft-server-on-aws/18.png)
+![Instance storage settings](/blog/how-to-create-minecraft-server-on-aws/19.png)
 
 ครบแล้วครับส่วนหลัก ๆ ที่ต้องสนใจ กด **Launch instance** ได้เลย
 
-![Launching the instance](/blog/how-to-create-minecraft-server-on-aws/19.png)
+![Launching the instance](/blog/how-to-create-minecraft-server-on-aws/20.png)
 
 รอมันสร้างแป๊บนึงนะครับ
 
-![Instance creation progress](/blog/how-to-create-minecraft-server-on-aws/20.png)
+![Instance creation progress](/blog/how-to-create-minecraft-server-on-aws/21.png)
 
 สร้างเสร็จแล้ว กด Instance ID เพื่อเข้าไปดูรายละเอียดของ Instance เราได้เลย
 
-![Instance created successfully](/blog/how-to-create-minecraft-server-on-aws/21.png)
+![Instance created successfully](/blog/how-to-create-minecraft-server-on-aws/22.png)
 
 จะเห็นว่า **Instance state** ตอนนี้เป็น `Running` แล้ว แปลว่า VM ของเราพร้อมใช้งานแล้ว ต่อไปเราจะเข้าไปติดตั้ง Minecraft Server กัน กดที่ **Connect** ได้เลย
 
-![Running instance details](/blog/how-to-create-minecraft-server-on-aws/22.png)
+![Running instance details](/blog/how-to-create-minecraft-server-on-aws/23.png)
 
 เลือกแท็บ **EC2 Instance Connect** แล้วกด **Connect** เพื่อเข้าไปใน VM ของเราได้เลย
 
-![EC2 Instance Connect tab](/blog/how-to-create-minecraft-server-on-aws/23.png)
+![EC2 Instance Connect tab](/blog/how-to-create-minecraft-server-on-aws/24.png)
 
 Login เข้ามาได้แล้ว
 
-![Logged into EC2 instance](/blog/how-to-create-minecraft-server-on-aws/24.png)
+![Logged into EC2 instance](/blog/how-to-create-minecraft-server-on-aws/25.png)
 
 ให้เราติดตั้ง Software Package ที่ต้องใช้ก่อน โดยใช้คำสั่งนี้ แล้วเขาจะบอกว่า "Press [Enter] to continue" เราก็กด Enter ไป จากนั้นรอไม่นานก็จะขึ้นว่า `Done`
 
@@ -130,7 +132,7 @@ Login เข้ามาได้แล้ว
 sudo add-apt-repository ppa:openjdk-r/ppa
 ```
 
-![Adding OpenJDK repository on AWS](/blog/how-to-create-minecraft-server-on-aws/25.png)
+![Adding OpenJDK repository on AWS](/blog/how-to-create-minecraft-server-on-aws/26.png)
 
 จากนั้น Update รายการ Software Package ด้วยคำสั่งนี้
 
@@ -138,7 +140,7 @@ sudo add-apt-repository ppa:openjdk-r/ppa
 sudo apt update
 ```
 
-![Updating package lists on AWS](/blog/how-to-create-minecraft-server-on-aws/26.png)
+![Updating package lists on AWS](/blog/how-to-create-minecraft-server-on-aws/27.png)
 
 เอาล่ะ มาติดตั้ง OpenJDK + JRE เพื่อให้รัน Minecraft Server ได้
 
@@ -148,11 +150,11 @@ sudo apt update
 sudo apt install openjdk-21-jre-headless
 ```
 
-![Installing OpenJDK on AWS](/blog/how-to-create-minecraft-server-on-aws/27.png)
+![Installing OpenJDK on AWS](/blog/how-to-create-minecraft-server-on-aws/28.png)
 
 ติดตั้งเสร็จแล้ว
 
-![OpenJDK installation completed](/blog/how-to-create-minecraft-server-on-aws/28.png)
+![OpenJDK installation completed](/blog/how-to-create-minecraft-server-on-aws/29.png)
 
 ทีนี้เราจะมาติดตั้ง Software อีกตัวชื่อ Screen เอาไว้สร้าง Session ให้รันอยู่เบื้องหลังได้ เพราะถ้าเรา Start Minecraft Server แล้ว ปิด Terminal ไปมันจะได้ไม่ Stop ตามไปด้วย
 
@@ -160,7 +162,7 @@ sudo apt install openjdk-21-jre-headless
 sudo apt install screen
 ```
 
-![Installing Screen on AWS](/blog/how-to-create-minecraft-server-on-aws/29.png)
+![Installing Screen on AWS](/blog/how-to-create-minecraft-server-on-aws/30.png)
 
 ทีนี้แวะสร้าง Directory นิดนึง จะได้เก็บไฟล์เป็นระเบียบ
 
@@ -182,7 +184,7 @@ wget https://piston-data.mojang.com/v1/objects/59353fb40c36d304f2035d51e7d6e6baa
 mv server.jar minecraft_server.1.21.1.jar
 ```
 
-![Downloading Minecraft server jar on AWS](/blog/how-to-create-minecraft-server-on-aws/30.png)
+![Downloading Minecraft server jar on AWS](/blog/how-to-create-minecraft-server-on-aws/31.png)
 
 ต่อมาเราจะเปิด Screen Session ไว้ก่อน เพราะเตรียมรัน Minecraft Server แล้ว
 
@@ -194,7 +196,7 @@ screen
 
 จะได้หน้าตาแบบนี้
 
-![Started Screen session](/blog/how-to-create-minecraft-server-on-aws/31.png)
+![Started Screen session](/blog/how-to-create-minecraft-server-on-aws/32.png)
 
 ให้กด Space Bar หรือ Enter แล้วมันจะกลับมาหน้าปกติของ Terminal
 
@@ -208,7 +210,7 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.21.1.jar nogui
 
 แล้วเราจะเจอว่ามัน Error อ้าว แต่ไม่ต้องตกใจนะ เป็นเรื่องปกติ
 
-![Minecraft server EULA error on AWS](/blog/how-to-create-minecraft-server-on-aws/32.png)
+![Minecraft server EULA error on AWS](/blog/how-to-create-minecraft-server-on-aws/33.png)
 
 มันให้เราไปยอมรับ EULA (End-User License Agreement) ก่อน โดยการเปิดไฟล์ `eula.txt` ใน Text Editor ที่ถนัดได้เลย ผมขอใช้ Nano ละกัน
 
@@ -218,7 +220,7 @@ nano eula.txt
 
 เปลี่ยนค่าของ `eula` ให้เป็น `true`
 
-![Editing EULA file on AWS](/blog/how-to-create-minecraft-server-on-aws/33.png)
+![Editing EULA file on AWS](/blog/how-to-create-minecraft-server-on-aws/34.png)
 
 กด `Ctrl + O` แล้ว Enter เพื่อ Save ไฟล์ จากนั้นกด `Ctrl + X` เพื่อออกจาก Nano
 
@@ -230,7 +232,7 @@ nano server.properties
 
 ที่ผมจะเปลี่ยนจะมีความยากของเกม (`difficulty`) เป็น `normal` และแก้ข้อความที่จะแสดงใต้ชื่อ Server (`motd`) ด้วย จริง ๆ มันมีอะไรให้ปรับได้เยอะมาก ลองไปศึกษาดูว่าแต่ละ Property คืออะไร
 
-![Editing server properties on AWS](/blog/how-to-create-minecraft-server-on-aws/34.png)
+![Editing server properties on AWS](/blog/how-to-create-minecraft-server-on-aws/35.png)
 
 แก้เสร็จแล้วก็ Save แล้วก็ออกจาก Text Editor
 
@@ -242,33 +244,33 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.21.1.jar nogui
 
 และก็รอมัน Generate World นิดนึง จนเจอข้อความว่า `Done (xx.xxxs)! For help, type "help"` อันนี้ถือว่า Start Minecraft Server สำเร็จแล้ว
 
-![Minecraft server started successfully on AWS](/blog/how-to-create-minecraft-server-on-aws/35.png)
+![Minecraft server started successfully on AWS](/blog/how-to-create-minecraft-server-on-aws/36.png)
 
 ทีนี้เรามาลองเข้าไป Join Minecraft Server ของเรากัน
 
 เปิดเกม Minecraft ขึ้นมาเลย แล้วกดไปที่ Multiplayer
 
-![Minecraft multiplayer menu](/blog/how-to-create-minecraft-server-on-aws/36.png)
+![Minecraft multiplayer menu](/blog/how-to-create-minecraft-server-on-aws/37.png)
 
 กด Add Server
 
-![Add server button in Minecraft](/blog/how-to-create-minecraft-server-on-aws/37.png)
+![Add server button in Minecraft](/blog/how-to-create-minecraft-server-on-aws/38.png)
 
 จะเห็นเป็นแบบนี้ ตรง Server Name จะกรอกอะไรก็ได้ตามใจ ส่วนตรง Server Address ให้กรอกเป็นเลข IP ของ VM เรานะครับ ซึ่งดูได้จากหน้า Instance summary ตรง Public IPv4 address หรือจะใช้ Public DNS ก็ได้เหมือนกัน แล้วกด Done ถ้าจะให้เพื่อนเข้ามาเล่นด้วยก็ส่งเลข IP หรือ DNS ให้เพื่อนไปได้เลย
 
 (แต่ต้องบอกเพิ่มนิดนึงว่า IP/DNS ของ VM มันจะเปลี่ยนทุกครั้งที่เราปิดแล้วเปิดใหม่ ถ้าใครอยากให้คงที่ก็ต้องไปตั้งค่า Elastic IP เพิ่มเติมนะครับ)
 
-![Adding server address in Minecraft](/blog/how-to-create-minecraft-server-on-aws/38.png)
+![Adding server address in Minecraft](/blog/how-to-create-minecraft-server-on-aws/39.png)
 
 ถ้าทุกอย่างถูกต้อง เราก็จะเห็นว่า Minecraft Server พร้อมให้เข้าไปเล่นแล้ว
 
 ปล. เห็นข้อความใต้ชื่อ Server ไหม มาจากที่เราแก้ใน `server.properties` นั่นแหละ
 
-![Minecraft server ready to join](/blog/how-to-create-minecraft-server-on-aws/39.png)
+![Minecraft server ready to join](/blog/how-to-create-minecraft-server-on-aws/40.png)
 
 ไหนลองเข้าไปเล่นดูหน่อย
 
-![Joining Minecraft server on AWS](/blog/how-to-create-minecraft-server-on-aws/40.png)
+![Joining Minecraft server on AWS](/blog/how-to-create-minecraft-server-on-aws/41.png)
 
 เล่นได้แล้วววววว
 
@@ -276,21 +278,21 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.21.1.jar nogui
 
 คือตอนแรกก่อนที่จะ Start Minecraft Server เราได้สร้าง Screen Session ไปแล้วด้วยคำสั่ง `screen` แล้วเนอะ ทีนี้เราจะลองออกจาก Session กัน (แต่ไม่ได้ปิด Session นะ ระบบยังทำงานอยู่เบื้องหลัง) โดยการกด `Ctrl + A + D` จะได้ผลลัพธ์ประมาณนี้
 
-![Detaching from Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/41.png)
+![Detaching from Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/42.png)
 
 ทีนี้ลอง List Screen Session มาดูว่าเปิด Session อะไรไว้อยู่บ้าง ด้วย `screen -list` จะเห็นว่าตอนนี้มีอยู่ 1 Session ที่ทำงานอยู่เบื้องหลัง
 
-![Listing Screen sessions on AWS](/blog/how-to-create-minecraft-server-on-aws/42.png)
+![Listing Screen sessions on AWS](/blog/how-to-create-minecraft-server-on-aws/43.png)
 
 จากภาพด้านบน จำเลขที่ชี้ไว้นะ เราจะเอาไว้ใช้เวลาจะกลับไปทำงานกับ Session นั้น โดยใช้คำสั่ง `screen -r <เลข Session>` เช่น `screen -r 26103` พอพิมพ์แล้ว Enter ก็จะเห็นว่าเรากลับมาที่หน้า Minecraft Server เหมือนเดิม
 
-![Reattaching to Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/43.png)
+![Reattaching to Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/44.png)
 
 อีกนิดนึง ที่ Minecraft Server ที่กำลังทำงานอยู่ เราสามารถพิมพ์ Command ของ Minecraft ได้ เช่น ให้สิทธิ์ OP, เสกของ หรือเตะคนออกจาก Server
 
 ถ้าอยากรู้ว่าใช้ Command อะไรได้บ้าง ลองพิมพ์ `help` แล้วกด Enter ดู มันจะแสดงรายงานของ Command ที่ใช้งานได้
 
-![Minecraft server help command output](/blog/how-to-create-minecraft-server-on-aws/44.png)
+![Minecraft server help command output](/blog/how-to-create-minecraft-server-on-aws/45.png)
 
 จบของจริง
 
