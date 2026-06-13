@@ -292,7 +292,7 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.21.1.jar nogui
 
 ![Listing Screen sessions on AWS](/blog/how-to-create-minecraft-server-on-aws/45.png)
 
-จากภาพด้านบน จำเลขที่ชี้ไว้นะ เราจะเอาไว้ใช้เวลาจะกลับไปทำงานกับ Session นั้น โดยใช้คำสั่ง `screen -r <เลข Session>` เช่น `screen -r 26103` พอพิมพ์แล้ว Enter ก็จะเห็นว่าเรากลับมาที่หน้า Minecraft Server เหมือนเดิม
+จากภาพด้านบน จำเลขที่ชี้ไว้นะ เราจะเอาไว้ใช้เวลาจะกลับไปทำงานกับ Session นั้น โดยใช้คำสั่ง `screen -r <เลข Session>` เช่น `screen -r 19667` พอพิมพ์แล้ว Enter ก็จะเห็นว่าเรากลับมาที่หน้า Minecraft Server เหมือนเดิม
 
 ![Reattaching to Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/46.png)
 
