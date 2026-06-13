@@ -1,7 +1,7 @@
 ---
 title: "วิธีเปิด Minecraft Server บน AWS (แบบละเอียด)"
 description: "วิธีเปิด Minecraft Server บน AWS แบบละเอียดพร้อมภาพประกอบ ถึงไม่ใช้ AWS ก็อ่านได้"
-createdAt: "Jun 9, 2026"
+createdAt: "Jun 14, 2026"
 heroImage: "/blog/how-to-create-minecraft-server-on-aws/banner.png"
 tags:
   - "Minecraft Server"
