@@ -256,21 +256,29 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.21.1.jar nogui
 
 ![Add server button in Minecraft](/blog/how-to-create-minecraft-server-on-aws/38.png)
 
-จะเห็นเป็นแบบนี้ ตรง Server Name จะกรอกอะไรก็ได้ตามใจ ส่วนตรง Server Address ให้กรอกเป็นเลข IP ของ VM เรานะครับ ซึ่งดูได้จากหน้า Instance summary ตรง Public IPv4 address หรือจะใช้ Public DNS ก็ได้เหมือนกัน แล้วกด Done ถ้าจะให้เพื่อนเข้ามาเล่นด้วยก็ส่งเลข IP หรือ DNS ให้เพื่อนไปได้เลย
+จะเห็นเป็นแบบนี้ ตรง Server Name จะกรอกอะไรก็ได้ตามใจ
+
+![Adding server name in Minecraft](/blog/how-to-create-minecraft-server-on-aws/39.png)
+
+ส่วนตรง Server Address ให้กรอกเป็นเลข IP ของ VM เรานะครับ ซึ่งดูได้จากหน้า Instance summary ตรง Public IPv4 address หรือจะใช้ Public DNS ก็ได้เหมือนกัน
 
 (แต่ต้องบอกเพิ่มนิดนึงว่า IP/DNS ของ VM มันจะเปลี่ยนทุกครั้งที่เราปิดแล้วเปิดใหม่ ถ้าใครอยากให้คงที่ก็ต้องไปตั้งค่า Elastic IP เพิ่มเติมนะครับ)
 
-![Adding server address in Minecraft](/blog/how-to-create-minecraft-server-on-aws/39.png)
+แล้วกด Done ถ้าจะให้เพื่อนเข้ามาเล่นด้วยก็ส่งเลข IP หรือ DNS ให้เพื่อนไปได้เลย
+
+![EC2 instance summary](/blog/how-to-create-minecraft-server-on-aws/40.png)
+
+![Adding server address in Minecraft](/blog/how-to-create-minecraft-server-on-aws/41.png)
 
 ถ้าทุกอย่างถูกต้อง เราก็จะเห็นว่า Minecraft Server พร้อมให้เข้าไปเล่นแล้ว
 
 ปล. เห็นข้อความใต้ชื่อ Server ไหม มาจากที่เราแก้ใน `server.properties` นั่นแหละ
 
-![Minecraft server ready to join](/blog/how-to-create-minecraft-server-on-aws/40.png)
+![Minecraft server ready to join](/blog/how-to-create-minecraft-server-on-aws/42.png)
 
 ไหนลองเข้าไปเล่นดูหน่อย
 
-![Joining Minecraft server on AWS](/blog/how-to-create-minecraft-server-on-aws/41.png)
+![Joining Minecraft server on AWS](/blog/how-to-create-minecraft-server-on-aws/43.png)
 
 เล่นได้แล้วววววว
 
@@ -278,21 +286,21 @@ java -Xmx1024M -Xms1024M -jar minecraft_server.1.21.1.jar nogui
 
 คือตอนแรกก่อนที่จะ Start Minecraft Server เราได้สร้าง Screen Session ไปแล้วด้วยคำสั่ง `screen` แล้วเนอะ ทีนี้เราจะลองออกจาก Session กัน (แต่ไม่ได้ปิด Session นะ ระบบยังทำงานอยู่เบื้องหลัง) โดยการกด `Ctrl + A + D` จะได้ผลลัพธ์ประมาณนี้
 
-![Detaching from Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/42.png)
+![Detaching from Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/44.png)
 
 ทีนี้ลอง List Screen Session มาดูว่าเปิด Session อะไรไว้อยู่บ้าง ด้วย `screen -list` จะเห็นว่าตอนนี้มีอยู่ 1 Session ที่ทำงานอยู่เบื้องหลัง
 
-![Listing Screen sessions on AWS](/blog/how-to-create-minecraft-server-on-aws/43.png)
+![Listing Screen sessions on AWS](/blog/how-to-create-minecraft-server-on-aws/45.png)
 
 จากภาพด้านบน จำเลขที่ชี้ไว้นะ เราจะเอาไว้ใช้เวลาจะกลับไปทำงานกับ Session นั้น โดยใช้คำสั่ง `screen -r <เลข Session>` เช่น `screen -r 26103` พอพิมพ์แล้ว Enter ก็จะเห็นว่าเรากลับมาที่หน้า Minecraft Server เหมือนเดิม
 
-![Reattaching to Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/44.png)
+![Reattaching to Screen session on AWS](/blog/how-to-create-minecraft-server-on-aws/46.png)
 
 อีกนิดนึง ที่ Minecraft Server ที่กำลังทำงานอยู่ เราสามารถพิมพ์ Command ของ Minecraft ได้ เช่น ให้สิทธิ์ OP, เสกของ หรือเตะคนออกจาก Server
 
 ถ้าอยากรู้ว่าใช้ Command อะไรได้บ้าง ลองพิมพ์ `help` แล้วกด Enter ดู มันจะแสดงรายงานของ Command ที่ใช้งานได้
 
-![Minecraft server help command output](/blog/how-to-create-minecraft-server-on-aws/45.png)
+![Minecraft server help command output](/blog/how-to-create-minecraft-server-on-aws/47.png)
 
 จบของจริง
 
