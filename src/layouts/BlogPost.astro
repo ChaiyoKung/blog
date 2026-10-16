@@ -4,6 +4,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
 import Prose from "../components/Prose.astro";
 import BlogCardTag from "../components/BlogCardTag.astro";
+import ViewCount from "../components/ViewCount.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -30,6 +31,10 @@ const { title, description, createdAt, updatedAt, heroImage, tags } =
           </div>
         )
       }
+    </div>
+
+    <div class="mb-4">
+      <ViewCount />
     </div>
 
     <div class="mb-4">

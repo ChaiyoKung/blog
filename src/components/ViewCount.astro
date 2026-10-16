@@ -1,0 +1,11 @@
+---
+const { host } = new URL(Astro.site ?? Astro.url);
+const path = Astro.url.pathname.replace(/\/+$/, "");
+const hitsUrl = `https://hits.sh/${host}${path}.svg?label=views&color=6b7280&labelColor=e5e7eb&style=flat-square`;
+---
+
+{
+  import.meta.env.PROD && (
+    <img src={hitsUrl} alt="View count" height="20" loading="lazy" />
+  )
+}
