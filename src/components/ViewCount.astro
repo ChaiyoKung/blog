@@ -2,10 +2,25 @@
 const { host } = new URL(Astro.site ?? Astro.url);
 const path = Astro.url.pathname.replace(/\/+$/, "");
 const hitsUrl = `https://hits.sh/${host}${path}.svg?label=views&color=155dfc&labelColor=f3f4f6&style=flat`;
+
+// Dev-only mock count, shown instead of the real hits.sh badge.
+const mockViews = "1,234";
 ---
 
 {
-  import.meta.env.PROD && (
+  import.meta.env.PROD ? (
     <img src={hitsUrl} alt="View count" height="20" loading="lazy" />
+  ) : (
+    <span
+      class="inline-flex items-center h-5 text-xs leading-none rounded overflow-hidden"
+      title="Mock view count (dev only)"
+    >
+      <span class="px-1.5 h-full flex items-center bg-gray-100 text-gray-700">
+        views
+      </span>
+      <span class="px-1.5 h-full flex items-center bg-blue-600 text-white">
+        {mockViews}
+      </span>
+    </span>
   )
 }
