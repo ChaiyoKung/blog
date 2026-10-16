@@ -4,6 +4,7 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Layout.astro";
 import Prose from "../components/Prose.astro";
 import BlogCardTag from "../components/BlogCardTag.astro";
+import ViewCount from "../components/ViewCount.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
@@ -21,15 +22,12 @@ const { title, description, createdAt, updatedAt, heroImage, tags } =
       {title}
     </h1>
 
-    <div class="flex flex-col text-sm text-gray-500 mb-4">
-      <div>Created on <FormattedDate date={createdAt} /></div>
-      {
-        updatedAt && (
-          <div>
-            Last updated on <FormattedDate date={updatedAt} />
-          </div>
-        )
-      }
+    <div class="flex flex-row justify-between items-center mb-4">
+      <div class="text-sm text-gray-500">
+        Updated on <FormattedDate date={updatedAt ?? createdAt} />
+      </div>
+
+      <ViewCount />
     </div>
 
     <div class="mb-4">
