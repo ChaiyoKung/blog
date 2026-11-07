@@ -1,0 +1,25 @@
+---
+import GitHubLink from "../../components/GitHubLink.astro";
+import LinkedInLink from "../../components/LinkedInLink.astro";
+import Layout from "../../layouts/Layout.astro";
+import { toLocale } from "../../i18n/config";
+import { getLocaleStaticPaths } from "../../i18n/staticPaths";
+import { useTranslations } from "../../i18n/ui";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const t = useTranslations(toLocale(Astro.currentLocale));
+---
+
+<Layout title={t("about.title")} description={t("about.description")}>
+  <section class="flex flex-col space-y-8">
+    <h1 class="text-3xl font-bold text-gray-800">{t("about.title")}</h1>
+
+    <p class="text-gray-600">{t("about.body")}</p>
+
+    <div class="flex items-center space-x-4">
+      <GitHubLink class="text-blue-600 hover:text-blue-800" />
+      <LinkedInLink class="text-blue-600 hover:text-blue-800" />
+    </div>
+  </section>
+</Layout>

@@ -1,13 +1,19 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 import RssIcon from "./RssIcon.astro";
+import type { Locale } from "../i18n/config";
+import { useTranslations } from "../i18n/ui";
+import { localePath } from "../i18n/utils";
 
 type ReservedLinkProps = "href" | "target" | "aria-label";
-type Props = Omit<HTMLAttributes<"a">, ReservedLinkProps>;
+type Props = Omit<HTMLAttributes<"a">, ReservedLinkProps> & {
+  locale: Locale;
+};
 
-const props = Astro.props;
+const { locale, ...props } = Astro.props;
+const t = useTranslations(locale);
 ---
 
-<a href="/rss.xml" aria-label="RSS feed" {...props}>
+<a href={localePath(locale, "rss.xml")} aria-label={t("nav.rss")} {...props}>
   <RssIcon />
 </a>

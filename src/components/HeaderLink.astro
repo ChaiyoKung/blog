@@ -1,12 +1,18 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { splitLocalePath } from "../i18n/utils";
 
 type Props = HTMLAttributes<"a">;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
+
+const trimSlashes = (path: string) => path.replace(/^\/+|\/+$/g, "");
+const currentPath = trimSlashes(splitLocalePath(Astro.url.pathname).path);
+const linkPath = trimSlashes(splitLocalePath(String(href)).path);
+const isActive =
+  linkPath === ""
+    ? currentPath === ""
+    : currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
 ---
 
 <a
@@ -17,6 +23,7 @@ const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
       "text-blue-600 hover:text-blue-800": isActive,
     },
     "font-medium",
+    className,
   ]}
   {...props}
 >

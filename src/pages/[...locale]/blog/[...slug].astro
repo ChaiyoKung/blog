@@ -1,0 +1,51 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BlogPost from "../../../layouts/BlogPost.astro";
+import { LOCALES, localeToRouteParam, type Locale } from "../../../i18n/config";
+import {
+  getBlogLocale,
+  getBlogSlug,
+  localePath,
+  type TranslatedUrls,
+} from "../../../i18n/utils";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  // Locales that have a version of each post, found by its slug.
+  const localesBySlug = new Map<string, Locale[]>();
+  for (const post of posts) {
+    const slug = getBlogSlug(post.id);
+    localesBySlug.set(slug, [
+      ...(localesBySlug.get(slug) ?? []),
+      getBlogLocale(post.id),
+    ]);
+  }
+
+  return posts.map((post) => {
+    const slug = getBlogSlug(post.id);
+    const translatedUrls: TranslatedUrls = Object.fromEntries(
+      LOCALES.filter((locale) => localesBySlug.get(slug)?.includes(locale)).map(
+        (locale) => [locale, localePath(locale, `blog/${slug}/`)]
+      )
+    );
+
+    return {
+      params: { locale: localeToRouteParam(getBlogLocale(post.id)), slug },
+      props: { post, translatedUrls },
+    };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  translatedUrls: TranslatedUrls;
+}
+
+const { post, translatedUrls } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPost {...post.data} translatedUrls={translatedUrls}>
+  <Content />
+</BlogPost>

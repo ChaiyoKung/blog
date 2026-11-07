@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { toLocale } from "../i18n/config";
+import { localePath } from "../i18n/utils";
 import { tagToSlug } from "../utils/tagToSlug";
 
 interface Props {
@@ -7,6 +9,7 @@ interface Props {
 }
 
 const { tags } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
 
 if (!tags || tags.length === 0) {
   return null;
@@ -19,7 +22,7 @@ if (!tags || tags.length === 0) {
       <>
         {index !== 0 && <span class="text-gray-400">•</span>}
         <a
-          href={`/tags/${tagToSlug(tag)}`}
+          href={localePath(locale, `tags/${tagToSlug(tag)}`)}
           class="text-blue-600 hover:text-blue-800"
         >
           {tag}
