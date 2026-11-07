@@ -1,0 +1,47 @@
+---
+import BlogCard from "../../components/BlogCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { SITE_TITLE } from "../../consts";
+import { toLocale } from "../../i18n/config";
+import { getLocaleStaticPaths } from "../../i18n/staticPaths";
+import { useTranslations } from "../../i18n/ui";
+import { localePath } from "../../i18n/utils";
+import { getBlogsByLocale } from "../../utils/getBlogsByLocale";
+import { sortBlogCollectionByCreatedAt } from "../../utils/sortBlogCollectionByCreatedAt";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const locale = toLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+
+const blogLimit = 5;
+const blogs = await getBlogsByLocale(locale);
+const sortedBlogs = sortBlogCollectionByCreatedAt(blogs, "desc");
+const limitedBlogs = sortedBlogs.slice(0, blogLimit);
+const blogListPath = localePath(locale, "blog");
+---
+
+<Layout title={SITE_TITLE} description={t("site.description")}>
+  <div class="flex justify-between items-center mb-12">
+    <h2 class="text-3xl font-bold text-gray-800">{t("home.latestBlogs")}</h2>
+    <a
+      href={blogListPath}
+      class="text-blue-600 hover:text-blue-800 font-medium"
+    >
+      {t("home.viewAll")}
+    </a>
+  </div>
+
+  <div class="flex flex-col space-y-8 mb-12">
+    {limitedBlogs.map((blog) => <BlogCard blog={blog} />)}
+  </div>
+
+  <div class="flex justify-center items-center">
+    <a
+      href={blogListPath}
+      class="text-blue-600 border border-gray-200 font-medium py-2 px-4 rounded-lg text-center transition duration-100"
+    >
+      {t("home.viewAllBlogs")}
+    </a>
+  </div>
+</Layout>

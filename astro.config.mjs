@@ -10,13 +10,27 @@ export default defineConfig({
   site: "https://blog.chaiyokung.com",
   integrations: [
     mdx(),
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: "th",
+        locales: { th: "th-TH", en: "en-US" },
+      },
+    }),
     partytown({
       config: {
         forward: ["dataLayer.push"],
       },
     }),
   ],
+
+  i18n: {
+    defaultLocale: "th",
+    locales: ["th", "en"],
+    routing: {
+      // Thai is the main language, so its URLs stay the same (no `/th` prefix).
+      prefixDefaultLocale: false,
+    },
+  },
 
   vite: {
     plugins: [tailwindcss()],

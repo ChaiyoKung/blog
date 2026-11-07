@@ -1,0 +1,40 @@
+---
+import { LOCALES, type Locale } from "../i18n/config";
+import { LOCALE_LABELS, useTranslations } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+  /** Page URL for each locale. */
+  urls: Record<Locale, string>;
+}
+
+const { locale, urls } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<nav
+  aria-label={t("nav.language")}
+  class="flex items-center space-x-2 text-sm font-medium"
+>
+  {
+    LOCALES.map((target, index) => (
+      <>
+        {index !== 0 && <span class="text-gray-400">/</span>}
+        {target === locale ? (
+          <span aria-current="true" class="text-blue-600">
+            {LOCALE_LABELS[target]}
+          </span>
+        ) : (
+          <a
+            href={urls[target]}
+            lang={target}
+            hreflang={target}
+            class="text-gray-600 hover:text-gray-800"
+          >
+            {LOCALE_LABELS[target]}
+          </a>
+        )}
+      </>
+    ))
+  }
+</nav>

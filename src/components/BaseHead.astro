@@ -3,16 +3,26 @@
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 import { SITE_TITLE } from "../consts";
+import type { Locale } from "../i18n/config";
+import { localePath, type TranslatedUrls } from "../i18n/utils";
 
 interface Props {
   title: string;
   description: string;
   image?: string;
+  locale: Locale;
+  alternateUrls: TranslatedUrls;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
+const {
+  title,
+  description,
+  image = "/blog-placeholder-1.jpg",
+  locale,
+  alternateUrls,
+} = Astro.props;
 
 const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
 ---
@@ -26,7 +36,7 @@ const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
   rel="alternate"
   type="application/rss+xml"
   title={SITE_TITLE}
-  href={new URL("rss.xml", Astro.site)}
+  href={new URL(localePath(locale, "rss.xml"), Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
 
@@ -48,6 +58,17 @@ const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- Language versions -->
+{
+  Object.entries(alternateUrls).map(([alternateLocale, url]) => (
+    <link
+      rel="alternate"
+      hreflang={alternateLocale}
+      href={new URL(url, Astro.site)}
+    />
+  ))
+}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
