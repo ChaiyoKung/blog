@@ -5,14 +5,32 @@ import Layout from "./Layout.astro";
 import Prose from "../components/Prose.astro";
 import BlogCardTag from "../components/BlogCardTag.astro";
 import ViewCount from "../components/ViewCount.astro";
+import { toLocale } from "../i18n/config";
+import { useTranslations } from "../i18n/ui";
+import type { TranslatedUrls } from "../i18n/utils";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & {
+  translatedUrls: TranslatedUrls;
+};
 
-const { title, description, createdAt, updatedAt, heroImage, tags } =
-  Astro.props;
+const {
+  title,
+  description,
+  createdAt,
+  updatedAt,
+  heroImage,
+  tags,
+  translatedUrls,
+} = Astro.props;
+const t = useTranslations(toLocale(Astro.currentLocale));
 ---
 
-<Layout title={title} description={description} image={heroImage}>
+<Layout
+  title={title}
+  description={description}
+  image={heroImage}
+  translatedUrls={translatedUrls}
+>
   <article>
     <div class="mb-4">
       <BlogCardTag tags={tags} />
@@ -24,7 +42,8 @@ const { title, description, createdAt, updatedAt, heroImage, tags } =
 
     <div class="flex flex-row justify-between items-center mb-4">
       <div class="text-sm text-gray-500">
-        Updated on <FormattedDate date={updatedAt ?? createdAt} />
+        {t("post.updatedOn")}
+        <FormattedDate date={updatedAt ?? createdAt} />
       </div>
 
       <ViewCount />
@@ -34,7 +53,7 @@ const { title, description, createdAt, updatedAt, heroImage, tags } =
       <div class="aspect-video bg-gray-400 rounded-lg overflow-hidden">
         <img
           src={heroImage}
-          alt={`${title} Blog Post`}
+          alt={`${title} ${t("post.altSuffix")}`}
           class="object-cover w-full h-full"
         />
       </div>

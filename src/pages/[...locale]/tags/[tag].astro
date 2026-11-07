@@ -1,0 +1,82 @@
+---
+import { getCollection } from "astro:content";
+import { tagToSlug } from "../../../utils/tagToSlug";
+import { sortBlogCollectionByCreatedAt } from "../../../utils/sortBlogCollectionByCreatedAt";
+import BlogCard from "../../../components/BlogCard.astro";
+import Layout from "../../../layouts/Layout.astro";
+import {
+  LOCALES,
+  localeToRouteParam,
+  toLocale,
+  type Locale,
+} from "../../../i18n/config";
+import { useTranslations } from "../../../i18n/ui";
+import {
+  getBlogLocale,
+  localePath,
+  type TranslatedUrls,
+} from "../../../i18n/utils";
+
+export async function getStaticPaths() {
+  const blogs = await getCollection("blog");
+
+  const tagsByLocale = new Map<Locale, Set<string>>(
+    LOCALES.map((locale) => [locale, new Set<string>()])
+  );
+  for (const post of blogs) {
+    const tags = tagsByLocale.get(getBlogLocale(post.id));
+    post.data.tags?.forEach((tag) => tags?.add(tagToSlug(tag)));
+  }
+
+  return LOCALES.flatMap((locale) => {
+    const localeBlogs = blogs.filter(
+      (post) => getBlogLocale(post.id) === locale
+    );
+    const uniqueTags = new Set(
+      localeBlogs.flatMap((post) => post.data.tags ?? [])
+    );
+
+    return [...uniqueTags].map((tag) => {
+      const normalizedTag = tagToSlug(tag);
+
+      const filteredBlogs = localeBlogs.filter((post) => {
+        return post.data.tags?.some((t) => tagToSlug(t) === normalizedTag);
+      });
+      const sortedBlogs = sortBlogCollectionByCreatedAt(filteredBlogs, "desc");
+
+      // Locales that have posts with this tag.
+      const translatedUrls: TranslatedUrls = Object.fromEntries(
+        LOCALES.filter((other) =>
+          tagsByLocale.get(other)?.has(normalizedTag)
+        ).map((other) => [other, localePath(other, `tags/${normalizedTag}`)])
+      );
+
+      return {
+        params: { locale: localeToRouteParam(locale), tag: normalizedTag },
+        props: { blogs: sortedBlogs, translatedUrls },
+      };
+    });
+  });
+}
+
+const { tag } = Astro.params;
+const { blogs, translatedUrls } = Astro.props;
+const t = useTranslations(toLocale(Astro.currentLocale));
+---
+
+<Layout
+  title={t("tag.pageTitle", { tag: tag })}
+  description={t("tag.pageDescription", { tag: tag })}
+  translatedUrls={translatedUrls}
+>
+  <div class="flex justify-between items-center mb-12">
+    <h2 class="text-3xl font-bold text-gray-800">
+      {t("tag.label")}
+      <span class="text-blue-600">{tag}</span>
+    </h2>
+  </div>
+
+  <div class="flex flex-col space-y-8">
+    {blogs.map((blog) => <BlogCard blog={blog} />)}
+  </div>
+</Layout>

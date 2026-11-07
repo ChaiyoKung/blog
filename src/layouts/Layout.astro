@@ -2,23 +2,48 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { LOCALES, toLocale, type Locale } from "../i18n/config";
+import { LOCALE_HTML_LANG } from "../i18n/ui";
+import {
+  getTranslatedUrls,
+  localePath,
+  type TranslatedUrls,
+} from "../i18n/utils";
 
 interface Props {
   title: string;
   description: string;
   image?: string;
+  /** Set this when only some locales have this page, for example a blog post. */
+  translatedUrls?: TranslatedUrls;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, translatedUrls } = Astro.props;
+
+const locale = toLocale(Astro.currentLocale);
+const alternateUrls = getTranslatedUrls(Astro.url.pathname, translatedUrls);
+// A locale without this page links to its blog list instead.
+const languageUrls = Object.fromEntries(
+  LOCALES.map((target) => [
+    target,
+    alternateUrls[target] ?? localePath(target, "blog"),
+  ])
+) as Record<Locale, string>;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={LOCALE_HTML_LANG[locale]}>
   <head>
-    <BaseHead title={title} description={description} image={image} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={image}
+      locale={locale}
+      alternateUrls={alternateUrls}
+    />
   </head>
   <body class="flex flex-col min-h-screen">
-    <Header />
+    <Header locale={locale} languageUrls={languageUrls} />
 
     <main class="container mx-auto px-4 py-12 flex-grow">
       <slot />
