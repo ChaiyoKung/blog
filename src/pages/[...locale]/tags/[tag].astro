@@ -4,6 +4,7 @@ import { tagToSlug } from "../../../utils/tagToSlug";
 import { sortBlogCollectionByCreatedAt } from "../../../utils/sortBlogCollectionByCreatedAt";
 import BlogCard from "../../../components/BlogCard.astro";
 import Layout from "../../../layouts/Layout.astro";
+import { SITE_TITLE } from "../../../consts";
 import {
   LOCALES,
   localeToRouteParam,
@@ -65,7 +66,7 @@ const t = useTranslations(toLocale(Astro.currentLocale));
 ---
 
 <Layout
-  title={t("tag.pageTitle", { tag: tag })}
+  title={`${t("tag.pageTitle", { tag: tag })} | ${SITE_TITLE}`}
   description={t("tag.pageDescription", { tag: tag })}
   translatedUrls={translatedUrls}
 >
