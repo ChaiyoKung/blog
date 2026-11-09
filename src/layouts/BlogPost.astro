@@ -5,6 +5,7 @@ import Layout from "./Layout.astro";
 import Prose from "../components/Prose.astro";
 import BlogCardTag from "../components/BlogCardTag.astro";
 import ViewCount from "../components/ViewCount.astro";
+import { SITE_TITLE } from "../consts";
 import { toLocale } from "../i18n/config";
 import { useTranslations } from "../i18n/ui";
 import type { TranslatedUrls } from "../i18n/utils";
@@ -26,7 +27,7 @@ const t = useTranslations(toLocale(Astro.currentLocale));
 ---
 
 <Layout
-  title={title}
+  title={`${title} | ${SITE_TITLE}`}
   description={description}
   image={heroImage}
   translatedUrls={translatedUrls}
