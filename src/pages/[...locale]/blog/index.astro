@@ -17,7 +17,10 @@ const blogs = await getBlogsByLocale(locale);
 const sortedBlogs = sortBlogCollectionByCreatedAt(blogs, "desc");
 ---
 
-<Layout title={SITE_TITLE} description={t("site.description")}>
+<Layout
+  title={`${t("nav.blog")} | ${SITE_TITLE}`}
+  description={t("site.description")}
+>
   <div class="flex flex-col space-y-8">
     {sortedBlogs.map((blog) => <BlogCard blog={blog} />)}
   </div>
