@@ -2,6 +2,7 @@
 import GitHubLink from "../../components/GitHubLink.astro";
 import LinkedInLink from "../../components/LinkedInLink.astro";
 import Layout from "../../layouts/Layout.astro";
+import { SITE_TITLE } from "../../consts";
 import { toLocale } from "../../i18n/config";
 import { getLocaleStaticPaths } from "../../i18n/staticPaths";
 import { useTranslations } from "../../i18n/ui";
@@ -11,7 +12,10 @@ export const getStaticPaths = getLocaleStaticPaths;
 const t = useTranslations(toLocale(Astro.currentLocale));
 ---
 
-<Layout title={t("about.title")} description={t("about.description")}>
+<Layout
+  title={`${t("about.title")} | ${SITE_TITLE}`}
+  description={t("about.description")}
+>
   <section class="flex flex-col space-y-8">
     <h1 class="text-3xl font-bold text-gray-800">{t("about.title")}</h1>
 
