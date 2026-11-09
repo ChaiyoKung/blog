@@ -21,7 +21,10 @@ const limitedBlogs = sortedBlogs.slice(0, blogLimit);
 const blogListPath = localePath(locale, "blog");
 ---
 
-<Layout title={SITE_TITLE} description={t("site.description")}>
+<Layout
+  title={`${t("nav.home")} | ${SITE_TITLE}`}
+  description={t("site.description")}
+>
   <div class="flex justify-between items-center mb-12">
     <h2 class="text-3xl font-bold text-gray-800">{t("home.latestBlogs")}</h2>
     <a
