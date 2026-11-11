@@ -34,5 +34,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Keep vendor prefixes (like `-webkit-backdrop-filter`) for older Safari.
+      cssTarget: ["safari15"],
+    },
   },
 });
