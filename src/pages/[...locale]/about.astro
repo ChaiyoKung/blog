@@ -17,13 +17,19 @@ const t = useTranslations(toLocale(Astro.currentLocale));
   description={t("about.description")}
 >
   <section class="flex flex-col space-y-8">
-    <h1 class="text-3xl font-bold text-gray-800">{t("about.title")}</h1>
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-night-100">
+      {t("about.title")}
+    </h1>
 
-    <p class="text-gray-600">{t("about.body")}</p>
+    <p class="text-gray-600 dark:text-night-400">{t("about.body")}</p>
 
     <div class="flex items-center space-x-4">
-      <GitHubLink class="text-blue-600 hover:text-blue-800" />
-      <LinkedInLink class="text-blue-600 hover:text-blue-800" />
+      <GitHubLink
+        class="text-blue-600 hover:text-blue-800 dark:text-night-link dark:hover:text-night-link-hover"
+      />
+      <LinkedInLink
+        class="text-blue-600 hover:text-blue-800 dark:text-night-link dark:hover:text-night-link-hover"
+      />
     </div>
   </section>
 </Layout>
