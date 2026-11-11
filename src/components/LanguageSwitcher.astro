@@ -19,9 +19,9 @@ const t = useTranslations(locale);
   {
     LOCALES.map((target, index) => (
       <>
-        {index !== 0 && <span class="text-gray-400">/</span>}
+        {index !== 0 && <span class="text-gray-400 dark:text-gray-500">/</span>}
         {target === locale ? (
-          <span aria-current="true" class="text-blue-600">
+          <span aria-current="true" class="text-blue-600 dark:text-blue-400">
             {LOCALE_LABELS[target]}
           </span>
         ) : (
@@ -29,7 +29,7 @@ const t = useTranslations(locale);
             href={urls[target]}
             lang={target}
             hreflang={target}
-            class="text-gray-600 hover:text-gray-800"
+            class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100"
           >
             {LOCALE_LABELS[target]}
           </a>

@@ -5,6 +5,7 @@ import "../styles/global.css";
 import { SITE_TITLE } from "../consts";
 import type { Locale } from "../i18n/config";
 import { localePath, type TranslatedUrls } from "../i18n/utils";
+import { THEME_STORAGE_KEY } from "../utils/theme";
 
 interface Props {
   title: string;
@@ -39,6 +40,22 @@ const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
   href={new URL(localePath(locale, "rss.xml"), Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Set the theme before first paint to avoid a flash. -->
+<script is:inline define:vars={{ storageKey: THEME_STORAGE_KEY }}>
+  // Keep this logic the same as resolveTheme in src/utils/theme.ts.
+  (function () {
+    var stored = null;
+    try {
+      stored = localStorage.getItem(storageKey);
+    } catch (error) {}
+    var isDark =
+      stored === "dark" ||
+      (stored !== "light" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("dark", isDark);
+  })();
+</script>
 
 <!-- Font preloads -->
 <link

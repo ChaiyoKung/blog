@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
+/* Dark mode is class-based, so the user can override the system setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 .container {
   width: 100%;
 }
@@ -8,6 +11,11 @@
 .prose mark {
   color: var(--color-yellow-800);
   background-color: var(--color-yellow-200);
+}
+
+.dark .prose mark {
+  color: var(--color-yellow-100);
+  background-color: var(--color-yellow-800);
 }
 
 @media (width >= 40rem /* 640px */) {
