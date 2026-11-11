@@ -11,12 +11,12 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.2.0",
-    "@astrojs/partytown": "^2.1.4",
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/mdx": "^8.1.4",
+    "@astrojs/partytown": "^2.1.9",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.0.14",
-    "astro": "^5.5.2",
+    "astro": "^7.4.10",
     "markdown-it": "^14.1.0",
     "sanitize-html": "^2.17.0",
     "tailwindcss": "^4.0.14"
