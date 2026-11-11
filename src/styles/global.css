@@ -20,6 +20,15 @@
   --color-night-link-hover: #accbf5;
 }
 
+/* Make scrollbars and form controls match the theme. */
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
 .container {
   width: 100%;
 }
