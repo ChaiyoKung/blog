@@ -26,12 +26,12 @@ const blogListPath = localePath(locale, "blog");
   description={t("site.description")}
 >
   <div class="flex justify-between items-center mb-12">
-    <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100">
+    <h2 class="text-3xl font-bold text-gray-800 dark:text-night-100">
       {t("home.latestBlogs")}
     </h2>
     <a
       href={blogListPath}
-      class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+      class="text-blue-600 hover:text-blue-800 dark:text-night-link dark:hover:text-night-link-hover font-medium"
     >
       {t("home.viewAll")}
     </a>
@@ -44,7 +44,7 @@ const blogListPath = localePath(locale, "blog");
   <div class="flex justify-center items-center">
     <a
       href={blogListPath}
-      class="text-blue-600 dark:text-blue-400 border border-gray-200 dark:border-gray-700 font-medium py-2 px-4 rounded-lg text-center transition duration-100"
+      class="text-blue-600 dark:text-night-link border border-gray-200 dark:border-night-700 font-medium py-2 px-4 rounded-lg text-center transition duration-100"
     >
       {t("home.viewAllBlogs")}
     </a>

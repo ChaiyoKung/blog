@@ -28,14 +28,14 @@ const t = useTranslations(locale);
     <BlogCardTag tags={blog.data.tags} />
     <a href={localePath(locale, `blog/${getBlogSlug(blog.id)}/`)}>
       <h4
-        class="text-xl font-bold text-gray-800 dark:text-gray-100 my-2 transition duration-100"
+        class="text-xl font-bold text-gray-800 dark:text-night-100 my-2 transition duration-100"
       >
         {blog.data.title}
       </h4>
-      <p class="text-gray-600 dark:text-gray-400 mb-4">
+      <p class="text-gray-600 dark:text-night-400 mb-4">
         {blog.data.description}
       </p>
-      <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+      <div class="flex items-center text-sm text-gray-500 dark:text-night-400">
         <FormattedDate date={blog.data.createdAt} />
       </div>
     </a>
