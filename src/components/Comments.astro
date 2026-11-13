@@ -1,0 +1,102 @@
+---
+import { GISCUS } from "../consts";
+import { toLocale } from "../i18n/config";
+import { LOCALE_HTML_LANG, useTranslations } from "../i18n/ui";
+import { getCommentTerm } from "../utils/giscus";
+
+const locale = toLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const term = getCommentTerm(Astro.url.pathname);
+---
+
+<section
+  data-giscus
+  data-repo={GISCUS.repo}
+  data-repo-id={GISCUS.repoId}
+  data-category={GISCUS.category}
+  data-category-id={GISCUS.categoryId}
+  data-term={term}
+  data-lang={LOCALE_HTML_LANG[locale]}
+  class="mt-16"
+  data-pagefind-ignore
+>
+  <h2 class="text-2xl font-bold text-gray-800 dark:text-night-100 mb-4">
+    {t("post.comments")}
+  </h2>
+</section>
+
+<script>
+  import { DARK_CLASS } from "../utils/theme";
+  import {
+    GISCUS_CONTAINER_SELECTOR,
+    GISCUS_FRAME_SELECTOR,
+    GISCUS_ORIGIN,
+    GISCUS_SCRIPT_SRC,
+    buildThemeMessage,
+    isGiscusMessage,
+    toGiscusTheme,
+  } from "../utils/giscus";
+
+  const container = document.querySelector<HTMLElement>(
+    GISCUS_CONTAINER_SELECTOR
+  );
+  const root = document.documentElement;
+
+  function getCurrentTheme() {
+    return toGiscusTheme(root.classList.contains(DARK_CLASS));
+  }
+
+  function syncTheme() {
+    const frame = document.querySelector<HTMLIFrameElement>(
+      GISCUS_FRAME_SELECTOR
+    );
+    frame?.contentWindow?.postMessage(
+      buildThemeMessage(getCurrentTheme()),
+      GISCUS_ORIGIN
+    );
+  }
+
+  function loadGiscus(target: HTMLElement) {
+    const { repo, repoId, category, categoryId, term, lang } = target.dataset;
+    const script = document.createElement("script");
+    script.src = GISCUS_SCRIPT_SRC;
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    const attributes: Record<string, string | undefined> = {
+      "data-repo": repo,
+      "data-repo-id": repoId,
+      "data-category": category,
+      "data-category-id": categoryId,
+      // One thread for each term, so every language shares the thread.
+      "data-mapping": "specific",
+      "data-term": term,
+      "data-strict": "1",
+      "data-reactions-enabled": "1",
+      // Giscus sends a message when it is ready. We use it to sync the theme.
+      "data-emit-metadata": "1",
+      "data-input-position": "top",
+      "data-theme": getCurrentTheme(),
+      "data-lang": lang,
+      "data-loading": "lazy",
+    };
+    Object.entries(attributes).forEach(([name, value]) => {
+      if (value !== undefined) script.setAttribute(name, value);
+    });
+    target.appendChild(script);
+  }
+
+  if (container) {
+    loadGiscus(container);
+
+    // The toggle and the system setting both change the class on <html>.
+    new MutationObserver(syncTheme).observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    // The theme may change before the iframe is ready. Sync once it is.
+    window.addEventListener("message", (event) => {
+      if (isGiscusMessage(event)) syncTheme();
+    });
+  }
+</script>
