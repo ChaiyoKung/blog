@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier \"src/**/*\" --write",
+    "format:check": "prettier \"src/**/*\" --check",
     "test": "vitest"
   },
   "dependencies": {
