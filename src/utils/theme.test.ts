@@ -1,5 +1,10 @@
 import { describe, expect, test } from "vitest";
-import { getOppositeTheme, isTheme, resolveTheme } from "./theme";
+import {
+  getNextPreference,
+  isTheme,
+  resolveTheme,
+  toPreference,
+} from "./theme";
 
 describe("isTheme", () => {
   test("accepts light and dark", () => {
@@ -30,9 +35,22 @@ describe("resolveTheme", () => {
   });
 });
 
-describe("getOppositeTheme", () => {
-  test("switches between light and dark", () => {
-    expect(getOppositeTheme("light")).toBe("dark");
-    expect(getOppositeTheme("dark")).toBe("light");
+describe("toPreference", () => {
+  test("keeps a saved theme", () => {
+    expect(toPreference("light")).toBe("light");
+    expect(toPreference("dark")).toBe("dark");
+  });
+
+  test("returns system when nothing valid is saved", () => {
+    expect(toPreference(null)).toBe("system");
+    expect(toPreference("blue")).toBe("system");
+  });
+});
+
+describe("getNextPreference", () => {
+  test("cycles light, dark, system", () => {
+    expect(getNextPreference("light")).toBe("dark");
+    expect(getNextPreference("dark")).toBe("system");
+    expect(getNextPreference("system")).toBe("light");
   });
 });

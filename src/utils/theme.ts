@@ -28,6 +28,26 @@ export function resolveTheme(
   return systemPrefersDark ? DARK_THEME : LIGHT_THEME;
 }
 
-export function getOppositeTheme(theme: Theme): Theme {
-  return theme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
+export const SYSTEM_PREFERENCE = "system";
+
+/** What the user picked. "system" means no saved theme. */
+export type ThemePreference = Theme | typeof SYSTEM_PREFERENCE;
+
+const PREFERENCE_CYCLE: readonly ThemePreference[] = [
+  LIGHT_THEME,
+  DARK_THEME,
+  SYSTEM_PREFERENCE,
+];
+
+/** Read the saved value as a preference. Missing or invalid means "system". */
+export function toPreference(storedTheme: unknown): ThemePreference {
+  return isTheme(storedTheme) ? storedTheme : SYSTEM_PREFERENCE;
+}
+
+/** The preference a click switches to: light, then dark, then system. */
+export function getNextPreference(
+  preference: ThemePreference
+): ThemePreference {
+  const index = PREFERENCE_CYCLE.indexOf(preference);
+  return PREFERENCE_CYCLE[(index + 1) % PREFERENCE_CYCLE.length];
 }
