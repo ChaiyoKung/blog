@@ -1,9 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
-import LinkedInLink from "./LinkedInLink.astro";
-import GitHubLink from "./GitHubLink.astro";
-import RssLink from "./RssLink.astro";
 import SearchLink from "./SearchLink.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 import ThemeToggle from "./ThemeToggle.astro";
@@ -81,16 +78,6 @@ const t = useTranslations(locale);
 
         <div class="flex items-center space-x-4">
           <SearchLink
-            locale={locale}
-            class="text-gray-600 hover:text-gray-800 dark:text-night-400 dark:hover:text-night-100"
-          />
-          <GitHubLink
-            class="text-gray-600 hover:text-gray-800 dark:text-night-400 dark:hover:text-night-100"
-          />
-          <LinkedInLink
-            class="text-gray-600 hover:text-gray-800 dark:text-night-400 dark:hover:text-night-100"
-          />
-          <RssLink
             locale={locale}
             class="text-gray-600 hover:text-gray-800 dark:text-night-400 dark:hover:text-night-100"
           />
