@@ -13,12 +13,14 @@ bun install
 cp .env.example .env
 ```
 
-| Command              | What it does                              |
-| :------------------- | :---------------------------------------- |
-| `bun dev`            | Starts the dev server at `localhost:4321` |
-| `bun build`          | Builds the production site into `dist/`   |
-| `bun preview`        | Previews the build                        |
-| `bun run test --run` | Runs the unit tests once                  |
+| Command                | What it does                              |
+| :--------------------- | :---------------------------------------- |
+| `bun dev`              | Starts the dev server at `localhost:4321` |
+| `bun build`            | Builds the production site into `dist/`   |
+| `bun preview`          | Previews the build                        |
+| `bun run test --run`   | Runs the unit tests once                  |
+| `bun run format`       | Formats the code in `src/`                |
+| `bun run format:check` | Checks the format without changes         |
 
 ## Writing a New Post
 
