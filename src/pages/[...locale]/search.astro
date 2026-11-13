@@ -1,0 +1,47 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { SITE_TITLE } from "../../consts";
+import { toLocale } from "../../i18n/config";
+import { getLocaleStaticPaths } from "../../i18n/staticPaths";
+import { useTranslations } from "../../i18n/ui";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const t = useTranslations(toLocale(Astro.currentLocale));
+---
+
+<Layout
+  title={`${t("search.title")} | ${SITE_TITLE}`}
+  description={t("search.description")}
+>
+  <section class="flex flex-col space-y-8" data-pagefind-ignore>
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-night-100">
+      {t("search.title")}
+    </h1>
+
+    <div
+      id="search"
+      data-placeholder={t("search.placeholder")}
+      data-dev-notice={t("search.devNotice")}
+    >
+    </div>
+  </section>
+</Layout>
+
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  const container = document.getElementById("search");
+  if (window.PagefindUI) {
+    new PagefindUI({
+      element: container,
+      showSubResults: true,
+      showImages: true,
+      resetStyles: false,
+      translations: { placeholder: container.dataset.placeholder },
+    });
+  } else {
+    // The Pagefind files only exist after a production build.
+    container.textContent = container.dataset.devNotice;
+  }
+</script>

@@ -5,6 +5,7 @@ const en = {
   "nav.home": "Home",
   "nav.blog": "Blog",
   "nav.about": "About",
+  "nav.search": "Search",
   "nav.rss": "RSS feed",
   "nav.language": "Language",
   "theme.switchToLight": "Switch to light mode",
@@ -17,6 +18,11 @@ const en = {
   "tag.pageTitle": "Posts Tagged with: {tag}",
   "tag.pageDescription": "Blog posts tagged with {tag}",
   "tag.label": "Tag:",
+  "search.title": "Search",
+  "search.description": "Search all blog posts",
+  "search.placeholder": "Search posts",
+  "search.devNotice":
+    "Search needs a production build. Run `bun build` and `bun preview` to try it.",
   "about.title": "About Me",
   "about.description": "Learn more about me",
   "about.body":
@@ -30,6 +36,7 @@ const th: Record<UiKey, string> = {
   "nav.home": "หน้าแรก",
   "nav.blog": "บล็อก",
   "nav.about": "เกี่ยวกับผม",
+  "nav.search": "ค้นหา",
   "nav.rss": "RSS feed",
   "nav.language": "ภาษา",
   "theme.switchToLight": "สลับเป็นโหมดสว่าง",
@@ -42,6 +49,11 @@ const th: Record<UiKey, string> = {
   "tag.pageTitle": "โพสต์ที่ติดแท็ก: {tag}",
   "tag.pageDescription": "โพสต์ที่ติดแท็ก {tag}",
   "tag.label": "แท็ก:",
+  "search.title": "ค้นหา",
+  "search.description": "ค้นหาบล็อกทั้งหมด",
+  "search.placeholder": "ค้นหาโพสต์",
+  "search.devNotice":
+    "การค้นหาต้องใช้ production build ลองรัน `bun build` แล้วตามด้วย `bun preview`",
   "about.title": "เกี่ยวกับผม",
   "about.description": "รู้จักผมให้มากขึ้น",
   "about.body":
