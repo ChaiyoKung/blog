@@ -29,12 +29,16 @@
   color-scheme: dark;
 }
 
-/* Pagefind search UI follows the same theme. */
+/*
+ * Pagefind search UI follows the same theme.
+ * Pagefind sets its own variables on `:root` in a stylesheet that loads after
+ * this one. `:root.dark` is more specific, so the dark values win.
+ */
 :root {
   --pagefind-ui-font: inherit;
 }
 
-.dark {
+:root.dark {
   --pagefind-ui-primary: var(--color-night-link);
   --pagefind-ui-text: var(--color-night-100);
   --pagefind-ui-background: var(--color-night-900);
