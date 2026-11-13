@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import SearchIcon from "./SearchIcon.astro";
+import type { Locale } from "../i18n/config";
+import { useTranslations } from "../i18n/ui";
+import { localePath } from "../i18n/utils";
+
+type ReservedLinkProps = "href" | "target" | "aria-label";
+type Props = Omit<HTMLAttributes<"a">, ReservedLinkProps> & {
+  locale: Locale;
+};
+
+const { locale, ...props } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<a
+  href={localePath(locale, "search")}
+  aria-label={t("nav.search")}
+  title={t("nav.search")}
+  {...props}
+>
+  <SearchIcon />
+</a>

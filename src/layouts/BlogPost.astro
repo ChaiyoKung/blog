@@ -32,16 +32,22 @@ const t = useTranslations(toLocale(Astro.currentLocale));
   image={heroImage}
   translatedUrls={translatedUrls}
 >
-  <article>
-    <div class="mb-4">
+  <article data-pagefind-body>
+    <div class="mb-4" data-pagefind-ignore>
       <BlogCardTag tags={tags} />
     </div>
 
-    <h1 class="text-6xl font-bold text-gray-800 dark:text-night-100 mb-4">
+    <h1
+      class="text-6xl font-bold text-gray-800 dark:text-night-100 mb-4"
+      data-pagefind-meta="title"
+    >
       {title}
     </h1>
 
-    <div class="flex flex-row justify-between items-center mb-4">
+    <div
+      class="flex flex-row justify-between items-center mb-4"
+      data-pagefind-ignore
+    >
       <div class="text-sm text-gray-500 dark:text-night-400">
         {t("post.updatedOn")}
         <FormattedDate date={updatedAt ?? createdAt} />
@@ -50,10 +56,11 @@ const t = useTranslations(toLocale(Astro.currentLocale));
       <ViewCount />
     </div>
 
-    <div class="mb-4">
+    <div class="mb-4" data-pagefind-ignore>
       <div class="aspect-video bg-gray-400 rounded-lg overflow-hidden">
         <img
           src={heroImage}
+          data-pagefind-meta="image[src]"
           alt={`${title} ${t("post.altSuffix")}`}
           class="object-cover w-full h-full"
         />

@@ -29,6 +29,19 @@
   color-scheme: dark;
 }
 
+/* Pagefind search UI follows the same theme. */
+:root {
+  --pagefind-ui-font: inherit;
+}
+
+.dark {
+  --pagefind-ui-primary: var(--color-night-link);
+  --pagefind-ui-text: var(--color-night-100);
+  --pagefind-ui-background: var(--color-night-900);
+  --pagefind-ui-border: var(--color-night-700);
+  --pagefind-ui-tag: var(--color-night-800);
+}
+
 .container {
   width: 100%;
 }
