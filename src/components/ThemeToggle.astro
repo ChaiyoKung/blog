@@ -14,13 +14,14 @@ const t = useTranslations(locale);
 <button
   type="button"
   data-theme-toggle
-  aria-label={t("theme.switchToDark")}
-  title={t("theme.switchToDark")}
+  aria-label={t("theme.switchToLight")}
+  title={t("theme.switchToLight")}
   data-label-light={t("theme.switchToLight")}
   data-label-dark={t("theme.switchToDark")}
+  data-label-system={t("theme.switchToSystem")}
   class:list={["cursor-pointer", className]}
 >
-  <!-- Sun icon: shown in dark mode, so a click switches to light. -->
+  <!-- One icon shows the saved preference. The script hides the others. -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -32,14 +33,14 @@ const t = useTranslations(locale);
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
-    class="hidden dark:block"
+    data-theme-icon="light"
+    hidden
   >
     <circle cx="12" cy="12" r="4"></circle>
     <path
-      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+      d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"
     ></path>
   </svg>
-  <!-- Moon icon: shown in light mode, so a click switches to dark. -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -51,9 +52,32 @@ const t = useTranslations(locale);
     stroke-linecap="round"
     stroke-linejoin="round"
     aria-hidden="true"
-    class="block dark:hidden"
+    data-theme-icon="dark"
+    hidden
   >
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    <path
+      d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"
+    ></path>
+  </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    data-theme-icon="system"
+  >
+    <path
+      d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"
+    ></path>
+    <path d="M7 20h10"></path>
+    <path d="M9 16v4"></path>
+    <path d="M15 16v4"></path>
   </svg>
 </button>
 
@@ -62,61 +86,89 @@ const t = useTranslations(locale);
     DARK_CLASS,
     DARK_MEDIA_QUERY,
     DARK_THEME,
-    getOppositeTheme,
-    LIGHT_THEME,
+    getNextPreference,
     resolveTheme,
+    SYSTEM_PREFERENCE,
     THEME_STORAGE_KEY,
     THEME_TOGGLE_SELECTOR,
+    toPreference,
+    type ThemePreference,
   } from "../utils/theme";
 
   const root = document.documentElement;
 
-  function currentTheme() {
-    return root.classList.contains(DARK_CLASS) ? DARK_THEME : LIGHT_THEME;
+  function readStoredTheme() {
+    try {
+      return localStorage.getItem(THEME_STORAGE_KEY);
+    } catch {
+      // Treat blocked storage as "no saved choice".
+      return null;
+    }
   }
 
-  function updateButtons() {
-    const theme = currentTheme();
+  function applyTheme(storedTheme: string | null) {
+    const theme = resolveTheme(
+      storedTheme,
+      window.matchMedia(DARK_MEDIA_QUERY).matches
+    );
+    root.classList.toggle(DARK_CLASS, theme === DARK_THEME);
+  }
+
+  function savePreference(preference: ThemePreference) {
+    try {
+      if (preference === SYSTEM_PREFERENCE) {
+        localStorage.removeItem(THEME_STORAGE_KEY);
+      } else {
+        localStorage.setItem(THEME_STORAGE_KEY, preference);
+      }
+    } catch {
+      // Storage can be blocked. The theme still changes for this visit.
+    }
+  }
+
+  function updateButtons(preference: ThemePreference) {
+    const next = getNextPreference(preference);
     document
       .querySelectorAll<HTMLButtonElement>(THEME_TOGGLE_SELECTOR)
       .forEach((button) => {
-        // The label names the action: the theme the click switches to.
-        const label =
-          theme === DARK_THEME
-            ? button.dataset.labelLight
-            : button.dataset.labelDark;
+        // The label names the action: the preference the click switches to.
+        const label = {
+          light: button.dataset.labelLight,
+          dark: button.dataset.labelDark,
+          system: button.dataset.labelSystem,
+        }[next];
         button.setAttribute("aria-label", label ?? "");
         button.title = label ?? "";
+        button
+          .querySelectorAll<SVGElement>("[data-theme-icon]")
+          .forEach((icon) => {
+            icon.classList.toggle(
+              "hidden",
+              icon.dataset.themeIcon !== preference
+            );
+          });
       });
   }
+
+  // The preference is kept here so a blocked storage still cycles correctly.
+  let preference = toPreference(readStoredTheme());
 
   document
     .querySelectorAll<HTMLButtonElement>(THEME_TOGGLE_SELECTOR)
     .forEach((button) => {
       button.addEventListener("click", () => {
-        const nextTheme = getOppositeTheme(currentTheme());
-        root.classList.toggle(DARK_CLASS, nextTheme === DARK_THEME);
-        try {
-          localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
-        } catch {
-          // Storage can be blocked. The theme still changes for this visit.
-        }
-        updateButtons();
+        preference = getNextPreference(preference);
+        savePreference(preference);
+        applyTheme(preference === SYSTEM_PREFERENCE ? null : preference);
+        updateButtons(preference);
       });
     });
 
-  // Follow the system setting while the user has not chosen a theme.
-  window.matchMedia(DARK_MEDIA_QUERY).addEventListener("change", (event) => {
-    let stored: string | null = null;
-    try {
-      stored = localStorage.getItem(THEME_STORAGE_KEY);
-    } catch {
-      // Treat blocked storage as "no saved choice".
-    }
-    const theme = resolveTheme(stored, event.matches);
-    root.classList.toggle(DARK_CLASS, theme === DARK_THEME);
-    updateButtons();
+  // Follow the system setting while the preference is "system".
+  window.matchMedia(DARK_MEDIA_QUERY).addEventListener("change", () => {
+    if (preference !== SYSTEM_PREFERENCE) return;
+    applyTheme(null);
   });
 
-  updateButtons();
+  updateButtons(preference);
 </script>
