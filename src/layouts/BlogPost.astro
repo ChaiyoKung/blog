@@ -5,6 +5,7 @@ import Layout from "./Layout.astro";
 import Prose from "../components/Prose.astro";
 import BlogCardTag from "../components/BlogCardTag.astro";
 import ViewCount from "../components/ViewCount.astro";
+import Comments from "../components/Comments.astro";
 import { SITE_TITLE } from "../consts";
 import { toLocale } from "../i18n/config";
 import { useTranslations } from "../i18n/ui";
@@ -73,4 +74,6 @@ const t = useTranslations(toLocale(Astro.currentLocale));
       <slot />
     </Prose>
   </article>
+
+  <Comments />
 </Layout>
