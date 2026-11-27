@@ -6,6 +6,11 @@ import { SITE_TITLE } from "../consts";
 import type { Locale } from "../i18n/config";
 import { localePath, type TranslatedUrls } from "../i18n/utils";
 import {
+  CODE_WRAP_ATTRIBUTE,
+  CODE_WRAP_ON,
+  CODE_WRAP_STORAGE_KEY,
+} from "../utils/codeWrap";
+import {
   DARK_CLASS,
   DARK_MEDIA_QUERY,
   DARK_THEME,
@@ -68,6 +73,27 @@ const googleAnalyticsId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
       stored === darkTheme ||
       (stored !== lightTheme && window.matchMedia(darkMediaQuery).matches);
     document.documentElement.classList.toggle(darkClass, isDark);
+  })();
+</script>
+
+<!-- Set the code wrap choice before first paint to avoid a layout jump. -->
+<script
+  is:inline
+  define:vars={{
+    storageKey: CODE_WRAP_STORAGE_KEY,
+    attribute: CODE_WRAP_ATTRIBUTE,
+    onValue: CODE_WRAP_ON,
+  }}
+>
+  // Keep this logic the same as parseCodeWrap in src/utils/codeWrap.ts.
+  (function () {
+    var stored = null;
+    try {
+      stored = localStorage.getItem(storageKey);
+    } catch (error) {}
+    if (stored === onValue) {
+      document.documentElement.setAttribute(attribute, onValue);
+    }
   })();
 </script>
 
