@@ -32,6 +32,9 @@
   "overrides": {
     "anymatch": {
       "picomatch": "^2.3.2"
+    },
+    "css-tree": {
+      "source-map-js": "^1.2.2"
     }
   }
 }
