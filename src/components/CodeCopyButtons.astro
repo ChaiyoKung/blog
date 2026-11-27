@@ -109,7 +109,8 @@ const iconProps = {
     // The wrapper clips the corners. The bar stays still when the code scrolls.
     const wrapper = document.createElement("div");
     wrapper.className = "my-6 overflow-hidden rounded-lg";
-    pre.classList.add("my-0", "rounded-none");
+    // `!` is needed because the prose styles for `pre` come later in the CSS.
+    pre.classList.add("my-0!", "rounded-none!");
     pre.replaceWith(wrapper);
     wrapper.append(bar, pre);
 
