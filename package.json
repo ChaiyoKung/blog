@@ -16,17 +16,31 @@
     "@astrojs/partytown": "^2.1.9",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@tailwindcss/vite": "^4.0.14",
+    "@tailwindcss/vite": "^4.3.5",
     "astro": "^7.4.10",
-    "markdown-it": "^14.1.0",
+    "markdown-it": "^14.3.3",
     "pagefind": "^1.6.0",
-    "sanitize-html": "^2.17.0",
-    "tailwindcss": "^4.0.14"
+    "sanitize-html": "^2.18.2",
+    "tailwindcss": "^4.3.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.12"
+  },
+  "overrides": {
+    "anymatch": {
+      "picomatch": "^2.3.2"
+    },
+    "css-tree": {
+      "source-map-js": "^1.2.2"
+    },
+    "@tailwindcss/typography": {
+      "postcss-selector-parser": "^6.1.5"
+    },
+    "hast-util-to-html": {
+      "mdast-util-to-hast": "^13.2.2"
+    }
   }
 }
