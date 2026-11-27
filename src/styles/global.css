@@ -80,6 +80,43 @@
   background-color: var(--color-yellow-800);
 }
 
+/*
+ * Code blocks: line numbers are always on.
+ * They are CSS counters on Shiki's `.line` spans, so the numbers are not in the
+ * text. Copy, search, and screen readers do not see them.
+ * The hanging indent keeps wrapped rows away from the number.
+ * The number box fits 2 digits (up to line 99).
+ */
+.prose pre code {
+  counter-reset: line;
+}
+
+.prose pre .line {
+  display: inline-block;
+  width: 100%;
+  padding-left: 3.5ch;
+  text-indent: -3.5ch;
+}
+
+.prose pre .line::before {
+  content: counter(line);
+  counter-increment: line;
+  display: inline-block;
+  width: 2ch;
+  margin-right: 1.5ch;
+  text-indent: 0;
+  text-align: right;
+  color: var(--color-gray-500);
+  user-select: none;
+}
+
+/* Wrap long lines. The `data-code-wrap` attribute on `<html>` turns it on. */
+html[data-code-wrap="on"] .prose pre,
+html[data-code-wrap="on"] .prose pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 @media (width >= 40rem /* 640px */) {
   .container {
     max-width: 40rem /* 640px */;

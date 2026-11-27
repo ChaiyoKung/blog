@@ -24,47 +24,77 @@ const iconProps = {
   data-label-idle={t("code.copy")}
   data-label-copied={t("code.copied")}
   data-label-failed={t("code.copyFailed")}
+  data-label-wrap={t("code.wrap")}
+  data-label-unwrap={t("code.unwrap")}
 >
   <div
     class="flex items-center justify-between border-b border-white/10 py-1 pr-2 pl-4 font-mono text-xs text-gray-400"
     data-pagefind-ignore
   >
     <span data-code-language></span>
-    <button
-      type="button"
-      data-code-copy-button
-      data-state="idle"
-      class="group flex size-8 cursor-pointer items-center justify-center rounded-md text-gray-400 hover:bg-white/10 hover:text-gray-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-night-link data-[state=copied]:text-green-400 data-[state=failed]:text-red-400"
-    >
-      <!-- Tabler Icons: copy, check, x. Only the icon for the state shows. -->
-      <svg
-        {...iconProps}
-        class="hidden group-data-[state=idle]:block"
-        data-icon="copy"
+    <div class="flex items-center gap-0.5">
+      <button
+        type="button"
+        data-code-wrap-button
+        aria-pressed="false"
+        class="group flex size-8 cursor-pointer items-center justify-center rounded-md text-gray-400 hover:bg-white/10 hover:text-gray-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-night-link"
       >
-        <path
-          d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"
-        ></path>
-        <path
-          d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"
-        ></path>
-      </svg>
-      <svg
-        {...iconProps}
-        class="hidden group-data-[state=copied]:block"
-        data-icon="check"
+        <!-- Tabler Icons: text-wrap, text-wrap-disabled. The icon shows the next action. -->
+        <svg
+          {...iconProps}
+          class="block group-aria-pressed:hidden"
+          data-icon="text-wrap"
+        >
+          <path d="M4 6l16 0"></path>
+          <path d="M4 18l5 0"></path>
+          <path d="M4 12h13a3 3 0 0 1 0 6h-4l2 -2m0 4l-2 -2"></path>
+        </svg>
+        <svg
+          {...iconProps}
+          class="hidden group-aria-pressed:block"
+          data-icon="text-wrap-disabled"
+        >
+          <path d="M4 6l10 0"></path>
+          <path d="M4 18l10 0"></path>
+          <path d="M4 12h17l-3 -3m0 6l3 -3"></path>
+        </svg>
+      </button>
+      <button
+        type="button"
+        data-code-copy-button
+        data-state="idle"
+        class="group flex size-8 cursor-pointer items-center justify-center rounded-md text-gray-400 hover:bg-white/10 hover:text-gray-100 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-night-link data-[state=copied]:text-green-400 data-[state=failed]:text-red-400"
       >
-        <path d="M5 12l5 5l10 -10"></path>
-      </svg>
-      <svg
-        {...iconProps}
-        class="hidden group-data-[state=failed]:block"
-        data-icon="x"
-      >
-        <path d="M18 6l-12 12"></path>
-        <path d="M6 6l12 12"></path>
-      </svg>
-    </button>
+        <!-- Tabler Icons: copy, check, x. Only the icon for the state shows. -->
+        <svg
+          {...iconProps}
+          class="hidden group-data-[state=idle]:block"
+          data-icon="copy"
+        >
+          <path
+            d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666"
+          ></path>
+          <path
+            d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"
+          ></path>
+        </svg>
+        <svg
+          {...iconProps}
+          class="hidden group-data-[state=copied]:block"
+          data-icon="check"
+        >
+          <path d="M5 12l5 5l10 -10"></path>
+        </svg>
+        <svg
+          {...iconProps}
+          class="hidden group-data-[state=failed]:block"
+          data-icon="x"
+        >
+          <path d="M18 6l-12 12"></path>
+          <path d="M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -80,6 +110,14 @@ const iconProps = {
     getCodeText,
     type CopyState,
   } from "../utils/codeCopy";
+  import {
+    CODE_WRAP_ATTRIBUTE,
+    CODE_WRAP_BUTTON_SELECTOR,
+    CODE_WRAP_ON,
+    CODE_WRAP_STORAGE_KEY,
+    parseCodeWrap,
+    serializeCodeWrap,
+  } from "../utils/codeWrap";
 
   const template = document.querySelector<HTMLTemplateElement>(
     "[data-code-copy-template]"
@@ -92,6 +130,45 @@ const iconProps = {
     failed: template?.dataset.labelFailed ?? "",
   };
 
+  const wrapLabels = {
+    wrap: template?.dataset.labelWrap ?? "",
+    unwrap: template?.dataset.labelUnwrap ?? "",
+  };
+
+  const root = document.documentElement;
+
+  function isWrapped() {
+    return parseCodeWrap(root.getAttribute(CODE_WRAP_ATTRIBUTE));
+  }
+
+  // One attribute on `<html>` controls every code block (see `global.css`).
+  // This keeps the attribute and every wrap button in step.
+  function applyWrap(wrapped: boolean) {
+    if (wrapped) {
+      root.setAttribute(CODE_WRAP_ATTRIBUTE, CODE_WRAP_ON);
+    } else {
+      root.removeAttribute(CODE_WRAP_ATTRIBUTE);
+    }
+
+    // The label names the action the click does.
+    const label = wrapped ? wrapLabels.unwrap : wrapLabels.wrap;
+    document
+      .querySelectorAll<HTMLButtonElement>(CODE_WRAP_BUTTON_SELECTOR)
+      .forEach((button) => {
+        button.setAttribute("aria-pressed", String(wrapped));
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      });
+  }
+
+  function saveWrap(wrapped: boolean) {
+    try {
+      localStorage.setItem(CODE_WRAP_STORAGE_KEY, serializeCodeWrap(wrapped));
+    } catch {
+      // Storage can be blocked. The choice still works for this visit.
+    }
+  }
+
   function addCopyBar(pre: HTMLElement, barTemplate: HTMLTemplateElement) {
     const bar = barTemplate.content.firstElementChild?.cloneNode(true);
     if (!(bar instanceof HTMLElement)) return;
@@ -100,7 +177,16 @@ const iconProps = {
       "[data-code-copy-button]"
     );
     const language = bar.querySelector<HTMLElement>("[data-code-language]");
-    if (!button || !language) return;
+    const wrapButton = bar.querySelector<HTMLButtonElement>(
+      CODE_WRAP_BUTTON_SELECTOR
+    );
+    if (!button || !language || !wrapButton) return;
+
+    wrapButton.addEventListener("click", () => {
+      const wrapped = !isWrapped();
+      applyWrap(wrapped);
+      saveWrap(wrapped);
+    });
 
     // The bar uses the same background as the code, so they look like one box.
     bar.style.backgroundColor = pre.style.backgroundColor;
@@ -138,5 +224,16 @@ const iconProps = {
     document
       .querySelectorAll<HTMLElement>(CODE_BLOCK_SELECTOR)
       .forEach((pre) => addCopyBar(pre, template));
+
+    // The saved choice is already on `<html>` (set early in `BaseHead`).
+    // Now the buttons exist, so give them the right state.
+    applyWrap(isWrapped());
+
+    // Keep other open tabs in step. This event fires only in the other tabs.
+    window.addEventListener("storage", (event) => {
+      if (event.key === CODE_WRAP_STORAGE_KEY) {
+        applyWrap(parseCodeWrap(event.newValue));
+      }
+    });
   }
 </script>
