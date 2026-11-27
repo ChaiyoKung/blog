@@ -28,5 +28,10 @@
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "vitest": "^4.1.12"
+  },
+  "overrides": {
+    "anymatch": {
+      "picomatch": "^2.3.2"
+    }
   }
 }
